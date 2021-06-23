@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PrestataireRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -78,6 +80,16 @@ class Prestataire
      * @ORM\JoinColumn(nullable=false)
      */
     private $quartier;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Mission::class, mappedBy="prestataire", orphanRemoval=true)
+     */
+    private $mission;
+
+    public function __construct()
+    {
+        $this->mission = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -224,6 +236,36 @@ class Prestataire
     public function setQuartier(?Quartier $quartier): self
     {
         $this->quartier = $quartier;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Mission[]
+     */
+    public function getMission(): Collection
+    {
+        return $this->mission;
+    }
+
+    public function addMission(Mission $mission): self
+    {
+        if (!$this->mission->contains($mission)) {
+            $this->mission[] = $mission;
+            $mission->setPrestataire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMission(Mission $mission): self
+    {
+        if ($this->mission->removeElement($mission)) {
+            // set the owning side to null (unless already changed)
+            if ($mission->getPrestataire() === $this) {
+                $mission->setPrestataire(null);
+            }
+        }
 
         return $this;
     }

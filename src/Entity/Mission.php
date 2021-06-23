@@ -42,6 +42,12 @@ class Mission
      */
     private $montant;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Prestataire::class, inversedBy="mission")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $prestataire;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -103,6 +109,18 @@ class Mission
     public function setMontant(float $montant): self
     {
         $this->montant = $montant;
+
+        return $this;
+    }
+
+    public function getPrestataire(): ?Prestataire
+    {
+        return $this->prestataire;
+    }
+
+    public function setPrestataire(?Prestataire $prestataire): self
+    {
+        $this->prestataire = $prestataire;
 
         return $this;
     }
