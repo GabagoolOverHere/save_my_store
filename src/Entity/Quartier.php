@@ -29,9 +29,15 @@ class Quartier
      */
     private $restaurant;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Prestataire::class, mappedBy="quartier", orphanRemoval=true)
+     */
+    private $prestataire;
+
     public function __construct()
     {
         $this->restaurant = new ArrayCollection();
+        $this->prestataire = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -75,6 +81,36 @@ class Quartier
             // set the owning side to null (unless already changed)
             if ($restaurant->getQuartier() === $this) {
                 $restaurant->setQuartier(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Prestataire[]
+     */
+    public function getPrestataire(): Collection
+    {
+        return $this->prestataire;
+    }
+
+    public function addPrestataire(Prestataire $prestataire): self
+    {
+        if (!$this->prestataire->contains($prestataire)) {
+            $this->prestataire[] = $prestataire;
+            $prestataire->setQuartier($this);
+        }
+
+        return $this;
+    }
+
+    public function removePrestataire(Prestataire $prestataire): self
+    {
+        if ($this->prestataire->removeElement($prestataire)) {
+            // set the owning side to null (unless already changed)
+            if ($prestataire->getQuartier() === $this) {
+                $prestataire->setQuartier(null);
             }
         }
 

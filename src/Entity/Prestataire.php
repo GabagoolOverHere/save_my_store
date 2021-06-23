@@ -67,6 +67,18 @@ class Prestataire
      */
     private $tel;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=PatronPrestataire::class, inversedBy="prestataire")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $patronPrestataire;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Quartier::class, inversedBy="prestataire")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $quartier;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -188,6 +200,30 @@ class Prestataire
     public function setTel(int $tel): self
     {
         $this->tel = $tel;
+
+        return $this;
+    }
+
+    public function getPatronPrestataire(): ?PatronPrestataire
+    {
+        return $this->patronPrestataire;
+    }
+
+    public function setPatronPrestataire(?PatronPrestataire $patronPrestataire): self
+    {
+        $this->patronPrestataire = $patronPrestataire;
+
+        return $this;
+    }
+
+    public function getQuartier(): ?Quartier
+    {
+        return $this->quartier;
+    }
+
+    public function setQuartier(?Quartier $quartier): self
+    {
+        $this->quartier = $quartier;
 
         return $this;
     }

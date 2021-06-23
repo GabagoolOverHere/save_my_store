@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PatronPrestataireRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -51,6 +53,16 @@ class PatronPrestataire
      * @ORM\Column(type="string", length=255)
      */
     private $code_postal;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Prestataire::class, mappedBy="patronPrestataire", orphanRemoval=true)
+     */
+    private $prestataire;
+
+    public function __construct()
+    {
+        $this->prestataire = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -137,6 +149,36 @@ class PatronPrestataire
     public function setCodePostal(string $code_postal): self
     {
         $this->code_postal = $code_postal;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Prestataire[]
+     */
+    public function getPrestataire(): Collection
+    {
+        return $this->prestataire;
+    }
+
+    public function addPrestataire(Prestataire $prestataire): self
+    {
+        if (!$this->prestataire->contains($prestataire)) {
+            $this->prestataire[] = $prestataire;
+            $prestataire->setPatronPrestataire($this);
+        }
+
+        return $this;
+    }
+
+    public function removePrestataire(Prestataire $prestataire): self
+    {
+        if ($this->prestataire->removeElement($prestataire)) {
+            // set the owning side to null (unless already changed)
+            if ($prestataire->getPatronPrestataire() === $this) {
+                $prestataire->setPatronPrestataire(null);
+            }
+        }
 
         return $this;
     }
