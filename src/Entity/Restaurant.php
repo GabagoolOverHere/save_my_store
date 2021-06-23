@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\RestaurantRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -68,6 +70,16 @@ class Restaurant
      * @ORM\JoinColumn(nullable=false)
      */
     private $quartier;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Probleme::class, mappedBy="restaurant")
+     */
+    private $probleme;
+
+    public function __construct()
+    {
+        $this->probleme = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -190,6 +202,36 @@ class Restaurant
     public function setQuartier(?Quartier $quartier): self
     {
         $this->quartier = $quartier;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Probleme[]
+     */
+    public function getProbleme(): Collection
+    {
+        return $this->probleme;
+    }
+
+    public function addProbleme(Probleme $probleme): self
+    {
+        if (!$this->probleme->contains($probleme)) {
+            $this->probleme[] = $probleme;
+            $probleme->setRestaurant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProbleme(Probleme $probleme): self
+    {
+        if ($this->probleme->removeElement($probleme)) {
+            // set the owning side to null (unless already changed)
+            if ($probleme->getRestaurant() === $this) {
+                $probleme->setRestaurant(null);
+            }
+        }
 
         return $this;
     }

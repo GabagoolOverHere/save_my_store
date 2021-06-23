@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MissionRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -47,6 +49,16 @@ class Mission
      * @ORM\JoinColumn(nullable=false)
      */
     private $prestataire;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Probleme::class, mappedBy="mission")
+     */
+    private $probleme;
+
+    public function __construct()
+    {
+        $this->probleme = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -121,6 +133,36 @@ class Mission
     public function setPrestataire(?Prestataire $prestataire): self
     {
         $this->prestataire = $prestataire;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Probleme[]
+     */
+    public function getProbleme(): Collection
+    {
+        return $this->probleme;
+    }
+
+    public function addProbleme(Probleme $probleme): self
+    {
+        if (!$this->probleme->contains($probleme)) {
+            $this->probleme[] = $probleme;
+            $probleme->setMission($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProbleme(Probleme $probleme): self
+    {
+        if ($this->probleme->removeElement($probleme)) {
+            // set the owning side to null (unless already changed)
+            if ($probleme->getMission() === $this) {
+                $probleme->setMission(null);
+            }
+        }
 
         return $this;
     }
