@@ -1,6 +1,5 @@
 
 ###> symfony/framework-bundle ###
-/.env
 /.env.local
 /.env.local.php
 /.env.*.local
@@ -22,3 +21,5 @@
 
 .Ds_Store
 composer.lock
+.env
+.gitignore
