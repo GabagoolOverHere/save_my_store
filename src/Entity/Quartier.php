@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\QuartierRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,6 +24,16 @@ class Quartier
      */
     private $nom;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Restaurant::class, mappedBy="quartier", orphanRemoval=true)
+     */
+    private $restaurant;
+
+    public function __construct()
+    {
+        $this->restaurant = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -35,6 +47,36 @@ class Quartier
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Restaurant[]
+     */
+    public function getRestaurant(): Collection
+    {
+        return $this->restaurant;
+    }
+
+    public function addRestaurant(Restaurant $restaurant): self
+    {
+        if (!$this->restaurant->contains($restaurant)) {
+            $this->restaurant[] = $restaurant;
+            $restaurant->setQuartier($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRestaurant(Restaurant $restaurant): self
+    {
+        if ($this->restaurant->removeElement($restaurant)) {
+            // set the owning side to null (unless already changed)
+            if ($restaurant->getQuartier() === $this) {
+                $restaurant->setQuartier(null);
+            }
+        }
 
         return $this;
     }

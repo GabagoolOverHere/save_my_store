@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PatronRestaurantRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -51,6 +53,16 @@ class PatronRestaurant
      * @ORM\Column(type="integer")
      */
     private $code_postal;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Restaurant::class, mappedBy="patronRestaurant", orphanRemoval=true)
+     */
+    private $restaurant;
+
+    public function __construct()
+    {
+        $this->restaurant = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -137,6 +149,36 @@ class PatronRestaurant
     public function setCodePostal(int $code_postal): self
     {
         $this->code_postal = $code_postal;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Restaurant[]
+     */
+    public function getRestaurant(): Collection
+    {
+        return $this->restaurant;
+    }
+
+    public function addRestaurant(Restaurant $restaurant): self
+    {
+        if (!$this->restaurant->contains($restaurant)) {
+            $this->restaurant[] = $restaurant;
+            $restaurant->setPatronRestaurant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRestaurant(Restaurant $restaurant): self
+    {
+        if ($this->restaurant->removeElement($restaurant)) {
+            // set the owning side to null (unless already changed)
+            if ($restaurant->getPatronRestaurant() === $this) {
+                $restaurant->setPatronRestaurant(null);
+            }
+        }
 
         return $this;
     }

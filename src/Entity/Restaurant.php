@@ -57,6 +57,18 @@ class Restaurant
      */
     private $longitude;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=PatronRestaurant::class, inversedBy="restaurant")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $patronRestaurant;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Quartier::class, inversedBy="restaurant")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $quartier;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -154,6 +166,30 @@ class Restaurant
     public function setLongitude(float $longitude): self
     {
         $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    public function getPatronRestaurant(): ?PatronRestaurant
+    {
+        return $this->patronRestaurant;
+    }
+
+    public function setPatronRestaurant(?PatronRestaurant $patronRestaurant): self
+    {
+        $this->patronRestaurant = $patronRestaurant;
+
+        return $this;
+    }
+
+    public function getQuartier(): ?Quartier
+    {
+        return $this->quartier;
+    }
+
+    public function setQuartier(?Quartier $quartier): self
+    {
+        $this->quartier = $quartier;
 
         return $this;
     }
