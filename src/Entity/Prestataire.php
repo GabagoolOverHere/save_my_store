@@ -57,6 +57,16 @@ class Prestataire
      */
     private $tarif;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $email;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $tel;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -154,6 +164,30 @@ class Prestataire
     public function setTarif(float $tarif): self
     {
         $this->tarif = $tarif;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getTel(): ?int
+    {
+        return $this->tel;
+    }
+
+    public function setTel(int $tel): self
+    {
+        $this->tel = $tel;
 
         return $this;
     }
