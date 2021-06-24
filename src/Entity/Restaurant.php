@@ -76,6 +76,11 @@ class Restaurant
      */
     private $probleme;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $camis;
+
     public function __construct()
     {
         $this->probleme = new ArrayCollection();
@@ -239,5 +244,17 @@ class Restaurant
     public function __toString(): string
     {
         return $this->nom;
+    }
+
+    public function getCamis(): ?int
+    {
+        return $this->camis;
+    }
+
+    public function setCamis(int $camis): self
+    {
+        $this->camis = $camis;
+
+        return $this;
     }
 }
