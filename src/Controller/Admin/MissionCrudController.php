@@ -6,11 +6,11 @@ use App\Entity\Mission;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
+use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 
 class MissionCrudController extends AbstractCrudController
 {
@@ -43,7 +43,7 @@ class MissionCrudController extends AbstractCrudController
         yield DateTimeField::new('date_debut');
         yield DateTimeField::new('date_fin');
         yield DateTimeField::new('date_facture');
-        yield NumberField::new('montant');
+        yield MoneyField::new('montant')->setCurrency('USD');
     }
 
 }

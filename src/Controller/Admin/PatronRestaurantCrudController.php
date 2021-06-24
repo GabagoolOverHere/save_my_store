@@ -20,7 +20,7 @@ class PatronRestaurantCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityLabelInSingular('une patron de restaurant')
+            ->setEntityLabelInSingular('un patron de restaurant')
             ->setEntityLabelInPlural('Patrons de restaurant')
             ->setSearchFields(['nom', 'prenom', 'tel'])
             ->setDefaultSort(['nom' => 'DESC']);
