@@ -40,7 +40,7 @@ class Restaurant
     private $code_postal;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="bigint")
      */
     private $tel;
 
