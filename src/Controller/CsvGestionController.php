@@ -1,6 +1,8 @@
 <?php
-
 namespace App\Controller;
+
+ini_set('max_execution_time', 0); // changer le temps dispo pour charger la page, infinie soit fin de l'exécution du script
+
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,10 +35,7 @@ class CsvGestionController extends AbstractController
         $handle = fopen($url, 'r');
         $i=0;
 
-        while ($line=fgetcsv($handle, 0, ',')) {
-            if ($i>1) {
-                break;
-            }
+        while ($line=fgetcsv($handle, 0, ',') && $i<1000) {
             $data = $quartier->findOneBy(['nom' => $line[2]]);
             if (is_null($data)) {
                 $data = new Quartier();
@@ -73,33 +72,12 @@ class CsvGestionController extends AbstractController
             $pbl = $probleme->findOneBy(['typeProbleme' => $tPbl]);
             if (is_null($pbl)) {
                 $pbl = new Probleme();
-                $pbl->setIntitule($line[11]);
                 $pbl->setTypeProbleme($tPbl);
                 $pbl->setRestaurant($resto);
                 $this->entityManager->persist($pbl);
                 $this->entityManager->flush();
             }
+            $i++;
         }
-
-
-        echo '<pre>';
-
-        var_dump($line);
-
-        echo '</pre>';
-        $i++;
     }
 }
-
-/*$restaurant = array_merge_recursive(array_slice($line, 0, 2), array_slice($line, 3, 4), array_slice($line, 18, 2)); //Merge de manière récursive mes trois tableaux
-
-echo 'Je suis restaurant : ';
-var_dump($restaurant);
-
-$quartier = array_slice($line, 2, 1);
-echo 'Je suis quartier : ';
-var_dump($quartier);
-
-$type_pbl = array_slice($line, 10, 2);
-echo 'Je suis type pbl : ';
-var_dump($type_pbl);*/
