@@ -45,11 +45,6 @@ class Restaurant
     private $tel;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $email;
-
-    /**
      * @ORM\Column(type="float")
      */
     private $latitude;
@@ -147,18 +142,6 @@ class Restaurant
     public function setTel(int $tel): self
     {
         $this->tel = $tel;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
 
         return $this;
     }
