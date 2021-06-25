@@ -56,7 +56,7 @@ class Restaurant
 
     /**
      * @ORM\ManyToOne(targetEntity=PatronRestaurant::class, inversedBy="restaurant")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $patronRestaurant;
 

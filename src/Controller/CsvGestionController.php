@@ -13,6 +13,7 @@ use App\Repository\ProblemeRepository;
 use App\Entity\Quartier;
 use App\Entity\TypeProbleme;
 use App\Entity\Restaurant;
+use App\Entity\Probleme;
 
 class CsvGestionController extends AbstractController
 {
@@ -73,7 +74,7 @@ class CsvGestionController extends AbstractController
             if (is_null($pbl)) {
                 $pbl = new Probleme();
                 $pbl->setIntitule($line[11]);
-                $pbl->setTypeProbleme($tpbl);
+                $pbl->setTypeProbleme($tPbl);
                 $pbl->setRestaurant($resto);
                 $this->entityManager->persist($pbl);
                 $this->entityManager->flush();
