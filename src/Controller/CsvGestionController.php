@@ -35,7 +35,7 @@ class CsvGestionController extends AbstractController
         $handle = fopen($url, 'r');
         $i=0;
 
-        while ($line=fgetcsv($handle, 0, ',') && $i<1000) {
+        while (($line=fgetcsv($handle, 0, ',')) && $i<1000) {
             $data = $quartier->findOneBy(['nom' => $line[2]]);
             if (is_null($data)) {
                 $data = new Quartier();
@@ -69,7 +69,7 @@ class CsvGestionController extends AbstractController
                 $this->entityManager->flush();
             }
 
-            $pbl = $probleme->findOneBy(['typeProbleme' => $tPbl]);
+            $pbl = $probleme->findOneBy(['typeProbleme' => $tPbl, 'restaurant' => $line[0]]);
             if (is_null($pbl)) {
                 $pbl = new Probleme();
                 $pbl->setTypeProbleme($tPbl);
