@@ -1,3 +1,6 @@
+/**
+ * Chargement de la map via l'API mapbox
+ */
 let mymap = L.map('mapid').setView([40.759916184568155, -73.97884458429418], 11);
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZ2FiYWdvb2wiLCJhIjoiY2twZTc0OTFwMXRsdjJ6b2d5NjRhaDllMyJ9.njhiqa0HxCPgZkTX0GV8FQ', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -7,6 +10,7 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     zoomOffset: -1,
     accessToken: 'your.mapbox.access.token'
 }).addTo(mymap);
+
 
 /**
  * Le fichier geoJSON global de toute la ville
@@ -90,8 +94,8 @@ let manhattanGeoJson = geoJsonCity.features[4];
 
 
 /**
- * Chargement des restaurant par le fichier twig +
- * Convertissage de la NodeList donné par le querySelector
+ * Chargement des divs restaurants par le fichier twig +
+ * Convertion de la NodeList donné par le querySelector
  * en tableau pour faciliter le traitement.
  */
 let restaurantsNodeList = document.querySelectorAll('div.restaurants > div');
@@ -100,13 +104,14 @@ restaurantDivs.shift();
 
 
 /**
- * On classe les marqueurs par quartiers
+ * On classe les divs par quartiers
  */
 let bronxDivs = [];
 let brooklynDivs = [];
 let manhattanDivs = [];
 let queensDivs = [];
 let statenDivs = [];
+
 restaurantDivs.forEach(function (restaurant) {
     switch (restaurant.dataset.quartier) {
         case 'Bronx':
@@ -127,8 +132,9 @@ restaurantDivs.forEach(function (restaurant) {
     }
 });
 
+
 /**
- * Création des variables qui contiendront les marqueurs
+ * Création des variables (dans le contexte global avec window) qui contiendront les marqueurs
  * chacune d'elle doit avoir un nom unique + assignation des markers
  */
 let bronxMarkersSet = [];
@@ -138,29 +144,34 @@ let queensMarkersSet = [];
 let statenMarkersSet = [];
 
 
-for(i = 1; i < brooklynDivs.length; i++) {
-    window['brooklynMarker'+i] = L.marker([brooklynDivs[i].dataset.latitude, brooklynDivs[i].dataset.longitude]).bindPopup("<b>"+brooklynDivs[i].dataset.nom+"</b><br>"+brooklynDivs[i].dataset.immeuble+" - "+brooklynDivs[i].dataset.rue+"<br>Phone: "+brooklynDivs[i].dataset.tel+"<br>");
-    brooklynMarkersSet.push(window['brooklynMarker'+i]);
+for (i = 0; i < brooklynDivs.length; i++) {
+    window['brooklynMarker' + i] = L.marker([brooklynDivs[i].dataset.latitude, brooklynDivs[i].dataset.longitude]).bindPopup("<b>" + brooklynDivs[i].dataset.nom + "</b><br>" + brooklynDivs[i].dataset.immeuble + " - " + brooklynDivs[i].dataset.rue + "<br>Phone: " + brooklynDivs[i].dataset.tel + "<br>");
+    brooklynMarkersSet.push(window['brooklynMarker' + i]);
 }
-for(i = 1; i < bronxDivs.length; i++) {
-    window['bronxMarker'+i] = L.marker([bronxDivs[i].dataset.latitude, bronxDivs[i].dataset.longitude]).bindPopup("<b>"+bronxDivs[i].dataset.nom+"</b><br>"+bronxDivs[i].dataset.immeuble+" - "+bronxDivs[i].dataset.rue+"<br>Phone: "+bronxDivs[i].dataset.tel+"<br>");
-    bronxMarkersSet.push(window['bronxMarker'+i]);
+for (i = 0; i < bronxDivs.length; i++) {
+    window['bronxMarker' + i] = L.marker([bronxDivs[i].dataset.latitude, bronxDivs[i].dataset.longitude]).bindPopup("<b>" + bronxDivs[i].dataset.nom + "</b><br>" + bronxDivs[i].dataset.immeuble + " - " + bronxDivs[i].dataset.rue + "<br>Phone: " + bronxDivs[i].dataset.tel + "<br>");
+
+    bronxMarkersSet.push(window['bronxMarker' + i]);
 }
-for(i = 1; i < manhattanDivs.length; i++) {
-    window['manhattanMarker'+i] = L.marker([manhattanDivs[i].dataset.latitude, manhattanDivs[i].dataset.longitude]).bindPopup("<b>"+manhattanDivs[i].dataset.nom+"</b><br>"+manhattanDivs[i].dataset.immeuble+" - "+manhattanDivs[i].dataset.rue+"<br>Phone: "+manhattanDivs[i].dataset.tel+"<br>");
-    manhattanMarkersSet.push(window['manhattanMarker'+i]);
+for (i = 0; i < manhattanDivs.length; i++) {
+    window['manhattanMarker' + i] = L.marker([manhattanDivs[i].dataset.latitude, manhattanDivs[i].dataset.longitude]).bindPopup("<b>" + manhattanDivs[i].dataset.nom + "</b><br>" + manhattanDivs[i].dataset.immeuble + " - " + manhattanDivs[i].dataset.rue + "<br>Phone: " + manhattanDivs[i].dataset.tel + "<br>");
+
+    manhattanMarkersSet.push(window['manhattanMarker' + i]);
 }
-for(i = 1; i < queensDivs.length; i++) {
-    window['queensMarker'+i] = L.marker([queensDivs[i].dataset.latitude, queensDivs[i].dataset.longitude]).bindPopup("<b>"+queensDivs[i].dataset.nom+"</b><br>"+queensDivs[i].dataset.immeuble+" - "+queensDivs[i].dataset.rue+"<br>Phone: "+queensDivs[i].dataset.tel+"<br>");
-    queensMarkersSet.push(window['queensMarker'+i]);
+for (i = 0; i < queensDivs.length; i++) {
+    window['queensMarker' + i] = L.marker([queensDivs[i].dataset.latitude, queensDivs[i].dataset.longitude]).bindPopup("<b>" + queensDivs[i].dataset.nom + "</b><br>" + queensDivs[i].dataset.immeuble + " - " + queensDivs[i].dataset.rue + "<br>Phone: " + queensDivs[i].dataset.tel + "<br>");
+
+    queensMarkersSet.push(window['queensMarker' + i]);
 }
-for(i = 1; i < statenDivs.length; i++) {
-    window['statenMarker'+i] = L.marker([statenDivs[i].dataset.latitude, statenDivs[i].dataset.longitude]).bindPopup("<b>"+statenDivs[i].dataset.nom+"</b><br>"+statenDivs[i].dataset.immeuble+" - "+statenDivs[i].dataset.rue+"<br>Phone: "+statenDivs[i].dataset.tel+"<br>");
-    statenMarkersSet.push(window['statenMarker'+i]);
+for (i = 0; i < statenDivs.length; i++) {
+    window['statenMarker' + i] = L.marker([statenDivs[i].dataset.latitude, statenDivs[i].dataset.longitude]).bindPopup("<b>" + statenDivs[i].dataset.nom + "</b><br>" + statenDivs[i].dataset.immeuble + " - " + statenDivs[i].dataset.rue + "<br>Phone: " + statenDivs[i].dataset.tel + "<br>");
+
+    statenMarkersSet.push(window['statenMarker' + i]);
 }
 
-
-
+/**
+ * Création des layers avec les marqueurs nouvellement créés
+ */
 let bronxMarkers = L.layerGroup(bronxMarkersSet);
 let brooklynMarkers = L.layerGroup(brooklynMarkersSet);
 let manhattanMarkers = L.layerGroup(manhattanMarkersSet);
@@ -239,9 +250,10 @@ function resetPosition() {
  * @type {number}
  */
 let j = 0;
+
 function activateGeoJson() {
     j++;
-    if (i === 1) {
+    if (j === 1) {
         handleWichGeo();
     } else {
         removeAllLayers();
