@@ -20,11 +20,6 @@ class RestaurantOwner implements UserInterface, PasswordAuthenticatedUserInterfa
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
-     */
-    private $email;
-
-    /**
      * @ORM\Column(type="json")
      */
     private $roles = [];
@@ -35,21 +30,14 @@ class RestaurantOwner implements UserInterface, PasswordAuthenticatedUserInterfa
      */
     private $password;
 
+    /**
+     * @ORM\Column(type="string", length=180, unique=true)
+     */
+    private $username;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
     }
 
     /**
@@ -122,5 +110,12 @@ class RestaurantOwner implements UserInterface, PasswordAuthenticatedUserInterfa
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
     }
 }
