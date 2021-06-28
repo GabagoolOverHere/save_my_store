@@ -2,10 +2,6 @@ security:
   encoders:
     App\Entity\Admin:
       algorithm: auto
-    App\Entity\RestaurantOwner:
-      algorithm: auto
-    App\Entity\ServiceProvider:
-      algorithm: auto
 
   # https://symfony.com/doc/current/security/experimental_authenticators.html
   enable_authenticator_manager: true
@@ -17,10 +13,6 @@ security:
         class: App\Entity\Admin
         property: username
 
-    RestaurantOwner:
-      entity:
-        class: App\Entity\RestaurantOwner
-        property: username
     # used to reload user from session & other features (e.g. switch_user)
     # used to reload user from session & other features (e.g. switch_user)
   firewalls:
