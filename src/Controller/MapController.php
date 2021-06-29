@@ -2,10 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\TypeProbleme;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\RestaurantRepository;
+use App\Repository\TypeProblemeRepository;
+use App\Repository\ProblemeRepository;
+
 
 class MapController extends AbstractController
 {
@@ -14,8 +18,10 @@ class MapController extends AbstractController
      */
     public function index(RestaurantRepository $restaurants): Response
     {
+        $restoProblems = $restaurants->getRestaurantsAndProblems();
+
         return $this->render('map/index.html.twig', [
-            'restaurants' => $restaurants->findAll(),
+            'restaurants' => $restoProblems,
         ]);
     }
 }

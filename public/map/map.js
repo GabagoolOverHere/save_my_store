@@ -102,7 +102,7 @@ let restaurantsNodeList = document.querySelectorAll('div.restaurants > div');
 let restaurantDivs = Array.from(restaurantsNodeList);
 restaurantDivs.shift();
 
-
+console.log(restaurantDivs);
 /**
  * On classe les divs par quartiers
  */
@@ -151,7 +151,7 @@ let statenMarkersSet = [];
  */
 function createMarkers(divs, name, array) {
     for (i = 0; i < divs.length; i++) {
-        window[name + i] = L.marker([divs[i].dataset.latitude, divs[i].dataset.longitude]).bindPopup("<b>" + divs[i].dataset.nom + "</b><br>" + divs[i].dataset.immeuble + " - " + divs[i].dataset.rue + "<br>Phone: " + divs[i].dataset.tel + "<br>");
+        window[name + i] = L.marker([divs[i].dataset.latitude, divs[i].dataset.longitude]).bindPopup("<b>" + divs[i].dataset.nom + "</b><br>" + divs[i].dataset.immeuble + " - " + divs[i].dataset.rue + "<br>Phone: " + divs[i].dataset.tel + "<br>" + divs[i].dataset.intitule);
         array.push(window[name + i]);
     }
 }
