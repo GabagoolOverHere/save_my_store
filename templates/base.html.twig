@@ -19,6 +19,7 @@
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
         <link rel="stylesheet" href="{{ asset('scss/header.min.css') }}">
         <link rel="stylesheet" href="{{ asset('fonts/icomoon/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('fontawesome/css/all.min.css') }}">
         {# {{ encore_entry_link_tags('app') }} #}
     {% endblock %}
 
@@ -40,5 +41,8 @@
 {% include 'commons/header.html.twig' %}
 
 {% block body %}{% endblock %}
+
+{% include 'commons/footer.html.twig' %}
+
 </body>
 </html>
