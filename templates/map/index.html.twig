@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MapController!{% endblock %}
+
+{% block body %}
+
+    <div class="container mt-5">
+        <div id="mapid"></div>
+        <div class="buttons ">
+            <button id="city" onclick="resetPosition()">City</button>
+            <button id="manhattan" onclick="activateGeoJson()">Manhattan</button>
+            <button id="bronx" onclick="activateGeoJson()">Bronx</button>
+            <button id="brooklyn" onclick="activateGeoJson()">Brooklyn</button>
+            <button id="queens" onclick="activateGeoJson()">Queens</button>
+            <button id="staten" onclick="activateGeoJson()">Staten Island</button>
+        </div>
+    </div>
+    <div class="restaurants">
+        {% for restaurant in restaurants %}
+            <div id="restaurant{{ restaurant.camis }}"
+                 data-quartier="{{ restaurant.quartier }}"
+                 data-nom="{{ restaurant.nom }}"
+                 data-immeuble="{{ restaurant.immeuble }}"
+                 data-rue="{{ restaurant.rue }}"
+                 data-code_postal="{{ restaurant.codepostal }}"
+                 data-tel="{{ restaurant.tel }}"
+                 data-latitude="{{ restaurant.latitude }}"
+                 data-longitude="{{ restaurant.longitude }}"
+                 data-camis="{{ restaurant.camis }}">
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

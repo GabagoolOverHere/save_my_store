@@ -69,7 +69,7 @@ class CsvGestionController extends AbstractController
                 $this->entityManager->flush();
             }
 
-            $pbl = $probleme->findOneBy(['typeProbleme' => $tPbl, 'restaurant' => $line[0]]);
+            $pbl = $probleme->findOneBy(['typeProbleme' => $tPbl, 'restaurant' => $resto]);
             if (is_null($pbl)) {
                 $pbl = new Probleme();
                 $pbl->setTypeProbleme($tPbl);
