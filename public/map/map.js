@@ -151,7 +151,7 @@ let statenMarkersSet = [];
  */
 function createMarkers(divs, name, array) {
     for (i = 0; i < divs.length; i++) {
-        window[name + i] = L.marker([divs[i].dataset.latitude, divs[i].dataset.longitude]).bindPopup("<b>" + divs[i].dataset.nom + "</b><br>" + divs[i].dataset.immeuble + " - " + divs[i].dataset.rue + "<br>Phone: " + divs[i].dataset.tel + "<br>" + divs[i].dataset.intitule);
+        window[name + i] = L.marker([divs[i].dataset.latitude, divs[i].dataset.longitude]).bindPopup("<p class='text-center h4 font-weight-bold text-dark'>" + divs[i].dataset.nom + "</p>" + divs[i].dataset.immeuble + " - " + divs[i].dataset.rue + "<br>Phone: " + divs[i].dataset.tel + "<br><p style='color:#dc3545;'>" + divs[i].dataset.intitule +"</p><div class='d-flex justify-content-center align-items-center'><button class='btn btn-primary'>Contact</button></div>");
         array.push(window[name + i]);
     }
 }
