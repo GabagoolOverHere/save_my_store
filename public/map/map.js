@@ -143,31 +143,25 @@ let manhattanMarkersSet = [];
 let queensMarkersSet = [];
 let statenMarkersSet = [];
 
-
-for (i = 0; i < brooklynDivs.length; i++) {
-    window['brooklynMarker' + i] = L.marker([brooklynDivs[i].dataset.latitude, brooklynDivs[i].dataset.longitude]).bindPopup("<b>" + brooklynDivs[i].dataset.nom + "</b><br>" + brooklynDivs[i].dataset.immeuble + " - " + brooklynDivs[i].dataset.rue + "<br>Phone: " + brooklynDivs[i].dataset.tel + "<br>");
-    brooklynMarkersSet.push(window['brooklynMarker' + i]);
+/**
+ * Transforme un tableau de divs en tableau de markers
+ * @param divs: le tableau de div qu'on désire transformer en marker
+ * @param name: le nom de la variable souhaité
+ * @param array: le tableau dans lequel on met tous les markers nouvellement créés
+ */
+function createMarkers(divs, name, array) {
+    for (i = 0; i < divs.length; i++) {
+        window[name + i] = L.marker([divs[i].dataset.latitude, divs[i].dataset.longitude]).bindPopup("<b>" + divs[i].dataset.nom + "</b><br>" + divs[i].dataset.immeuble + " - " + divs[i].dataset.rue + "<br>Phone: " + divs[i].dataset.tel + "<br>");
+        array.push(window[name + i]);
+    }
 }
-for (i = 0; i < bronxDivs.length; i++) {
-    window['bronxMarker' + i] = L.marker([bronxDivs[i].dataset.latitude, bronxDivs[i].dataset.longitude]).bindPopup("<b>" + bronxDivs[i].dataset.nom + "</b><br>" + bronxDivs[i].dataset.immeuble + " - " + bronxDivs[i].dataset.rue + "<br>Phone: " + bronxDivs[i].dataset.tel + "<br>");
 
-    bronxMarkersSet.push(window['bronxMarker' + i]);
-}
-for (i = 0; i < manhattanDivs.length; i++) {
-    window['manhattanMarker' + i] = L.marker([manhattanDivs[i].dataset.latitude, manhattanDivs[i].dataset.longitude]).bindPopup("<b>" + manhattanDivs[i].dataset.nom + "</b><br>" + manhattanDivs[i].dataset.immeuble + " - " + manhattanDivs[i].dataset.rue + "<br>Phone: " + manhattanDivs[i].dataset.tel + "<br>");
+createMarkers(brooklynDivs, 'brooklynMarker', brooklynMarkersSet);
+createMarkers(bronxDivs, 'bronxMarker', bronxMarkersSet);
+createMarkers(manhattanDivs, 'manhattanMarker', manhattanMarkersSet);
+createMarkers(queensDivs, 'queensMarker', queensMarkersSet);
+createMarkers(statenDivs, 'statenMarker', statenMarkersSet);
 
-    manhattanMarkersSet.push(window['manhattanMarker' + i]);
-}
-for (i = 0; i < queensDivs.length; i++) {
-    window['queensMarker' + i] = L.marker([queensDivs[i].dataset.latitude, queensDivs[i].dataset.longitude]).bindPopup("<b>" + queensDivs[i].dataset.nom + "</b><br>" + queensDivs[i].dataset.immeuble + " - " + queensDivs[i].dataset.rue + "<br>Phone: " + queensDivs[i].dataset.tel + "<br>");
-
-    queensMarkersSet.push(window['queensMarker' + i]);
-}
-for (i = 0; i < statenDivs.length; i++) {
-    window['statenMarker' + i] = L.marker([statenDivs[i].dataset.latitude, statenDivs[i].dataset.longitude]).bindPopup("<b>" + statenDivs[i].dataset.nom + "</b><br>" + statenDivs[i].dataset.immeuble + " - " + statenDivs[i].dataset.rue + "<br>Phone: " + statenDivs[i].dataset.tel + "<br>");
-
-    statenMarkersSet.push(window['statenMarker' + i]);
-}
 
 /**
  * Création des layers avec les marqueurs nouvellement créés
