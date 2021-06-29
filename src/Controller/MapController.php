@@ -9,7 +9,9 @@ use App\Repository\RestaurantRepository;
 
 class MapController extends AbstractController
 {
-    #[Route('/map', name: 'map')]
+    /**
+     * @Route("/map", name="map")
+     */
     public function index(RestaurantRepository $restaurants): Response
     {
         return $this->render('map/index.html.twig', [
