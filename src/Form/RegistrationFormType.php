@@ -3,11 +3,19 @@
 namespace App\Form;
 
 use App\Entity\PatronRestaurant;
+use App\Entity\Restaurant;
+use Symfony\Bridge\Doctrine\Form\ChoiceList;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Repository\RestaurantRepository;
+use Doctrine\DBAL\Types\BigIntType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CurrencyType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
@@ -28,9 +36,9 @@ class RegistrationFormType extends AbstractType
             ->add('email', EmailType::class)
             ->add('nom', TextType::class,['label' => 'Name :'])
             ->add('prenom', TextType::class,['label' => 'Surname :'])
-            ->add('immeuble', TextType::class,['label' => 'Building :'])
-            ->add('tel', TelType::class,['label' => 'Phone number :'])
-            ->add('rue', TextType::class,['label' => 'Street :'])
+            ->add('immeuble', TextType::class,['label' => 'Your building :'])
+            ->add('tel', TelType::class,['label' => 'Your phone number :'])
+            ->add('rue', TextType::class,['label' => 'Your street :'])
             ->add('code_postal', TextType::class,['label' => 'Zipcode :'])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
@@ -49,6 +57,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
+            ->add('Restaurant', EntityType::class, ['class' => Restaurant::class, 'choice_label'=>'camis', 'mapped'=>false, 'placeholder' => 'Select your camis'])
             ->add('Validate', SubmitType::class)
         ;
     }

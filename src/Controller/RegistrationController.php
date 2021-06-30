@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Admin;
+use App\Entity\Restaurant;
 use App\Entity\PatronRestaurant;
 use App\Form\RegistrationFormType;
 use App\Repository\AdminRepository;
+use App\Repository\RestaurantRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,6 +28,7 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $username = $form->get('username')->getData();
+            $restaurant_id = $form->get('Restaurant')->getData('ID');
             $count = $adminRepository->findBy(['username' => $username]);
             if ($count) {
                 $this->addFlash('error', 'Username already used, please make another choice.');
@@ -42,11 +45,10 @@ class RegistrationController extends AbstractController
                 )
             );
 
-
-
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($restaurant_owner);
             $entityManager->flush();
+            $restaurant_owner->addRestaurant($restaurant_id);
             $user->setPatronRestaurant($restaurant_owner);
             $entityManager->persist($user);
             $entityManager->flush();

@@ -3,7 +3,13 @@
 namespace App\Form;
 
 use App\Entity\PatronPrestataire;
+use App\Entity\Quartier;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Bridge\Doctrine\Form\ChoiceList;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -14,6 +20,8 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
@@ -28,10 +36,10 @@ class ServiceProviderFormType extends AbstractType
             ->add('email', EmailType::class)
             ->add('nom', TextType::class,['label' => 'Name :'])
             ->add('prenom', TextType::class,['label' => 'Surname :'])
-            ->add('immeuble', TextType::class,['label' => 'Building :'])
             ->add('tel', TelType::class,['label' => 'Phone number :'])
+            ->add('immeuble', TextType::class,['label' => 'Building :', 'required'=>false])
             ->add('rue', TextType::class,['label' => 'Street :'])
-            ->add('code_postal', TextType::class,['label' => 'Zipcode :'])
+            ->add('code_postal', NumberType::class,['label' => 'Zipcode :'])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
@@ -49,6 +57,16 @@ class ServiceProviderFormType extends AbstractType
                     ]),
                 ],
             ])
+            ->add('nom_societe',TextType::class, ['mapped'=>false])
+            ->add('tarif_societe',NumberType::class, ['mapped'=>false])
+            ->add('quartier_societe', EntityType::class, ['class' => Quartier::class, 'choice_label'=>'nom', 'mapped'=>false, 'placeholder' => 'Select your quarter'])
+            ->add('share_info', CheckboxType::class, ['label'=>'My informations and the service society\'s are the same.','mapped'=>false])
+            ->add('email_societe',EmailType::class, ['mapped'=>false, 'required'=>false])
+            ->add('tel_societe',TelType::class, ['mapped'=>false, 'required'=>false])
+            ->add('immeuble_societe',TextType::class, ['mapped'=>false, 'required'=>false])
+            ->add('rue_societe',TextType::class, ['mapped'=>false, 'required'=>false])
+            ->add('code_postal_societe',NumberType::class, ['mapped'=>false, 'required'=>false])
+
             ->add('Validate', SubmitType::class)
         ;
     }
