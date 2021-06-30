@@ -42,8 +42,6 @@ class RegistrationController extends AbstractController
                 )
             );
 
-            //$user->setEstPatronPrestataire(false);
-            //$user->setEstPatronRestaurant(true);
 
 
             $entityManager = $this->getDoctrine()->getManager();
