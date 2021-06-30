@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\PatronPrestataire;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -17,6 +18,33 @@ class PatronPrestataireRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, PatronPrestataire::class);
+    }
+
+    public function getPatronInfos(int $id){
+        $query = $this->createQueryBuilder('pp');
+
+        return $query
+            ->select('pp.nom', 'pp.prenom', 'pp.code_postal', 'pp.email', 'pp.immeuble', 'pp.rue', 'pp.tel')
+            ->where('pp.id = :id')
+            ->setParameter(':id', $id)
+            ->getQuery()
+            ->getResult()
+
+            ;
+    }
+
+    public function getPrestatairesInfos(int $id){
+        $query = $this->createQueryBuilder('pp');
+
+        return $query
+            ->select('(p.id) AS id_presta', '(p.nom) AS nom_presta', '(p.immeuble) AS immeuble_presta', '(p.rue) AS rue_presta', '(p.code_postal) AS code_postal_presta')
+            ->Join('App\Entity\Prestataire', 'p', Join::WITH, 'p.patronPrestataire = pp.id')
+            ->where('pp.id = :id')
+            ->setParameter(':id', $id)
+            ->getQuery()
+            ->getResult()
+
+            ;
     }
 
     // /**

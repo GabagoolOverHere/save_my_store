@@ -2,13 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\TypeProbleme;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\RestaurantRepository;
-use App\Repository\TypeProblemeRepository;
-use App\Repository\ProblemeRepository;
 
 
 class MapController extends AbstractController
