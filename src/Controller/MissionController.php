@@ -24,28 +24,17 @@ class MissionController extends AbstractController
     #[Route('/newmission', name: 'New Mission')]
     public function register(Request $request, EntityManagerInterface $em, AdminRepository $adminRepository, PatronPrestataireRepository $patronPrestataireRepository): Response
     {
-        $patronPrestataire = $adminRepository->get('patron_prestataire_id')->getData();
-        $prestataire=$patronPrestataireRepository->get('prestataire_id')->getData();
-        $mission = New Mission;
+        $mission = new Mission();
         $form = $this->createForm(MissionFormType::class, $mission);
-        $form->$form->handleRequest($request);
+        $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) { 
-            $description = $form->get('description')->getData();
-            $mission->setDescriptif($description);
-            $dateDebut = $form->get('date_debut')->getData();
-            $mission->setDateDebut($dateDebut);
-            $dateFin = $form->get('date_fin')->getData();
-            $mission->setDateFin($dateFin);
-            $dateFacture = $form->get('date_facture')->getData();
-            $mission->setDateFacture($dateFacture);
-            $montant = $form->get('montant')->getData();
-            $mission->setMontant($montant);
+            $prestataire = $form->get('prestataire')->getData('id');
+            $mission->setPrestataire($prestataire);
             
             $em = $this->getDoctrine()->getManager();
-            $em->persist($patronPrestataire);
+            $em->persist($mission);
             $em->flush();
-            $mission->setPrestataire($prestataire);
 
             return $this->redirectToRoute('profile');
         }
