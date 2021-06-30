@@ -190,44 +190,6 @@ class Admin implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPatronPrestaId(): ?PatronPrestataire
-    {
-        return $this->patron_presta_id;
-    }
-
-    public function setPatronPrestaId(PatronPrestataire $patron_presta_id): self
-    {
-        // set the owning side of the relation if necessary
-        if ($patron_presta_id->getAdminId() !== $this) {
-            $patron_presta_id->setAdminId($this);
-        }
-
-        $this->patron_presta_id = $patron_presta_id;
-
-        return $this;
-    }
-
-    public function getPatronRestauId(): ?PatronRestaurant
-    {
-        return $this->patron_restau_id;
-    }
-
-    public function setPatronRestauId(?PatronRestaurant $patron_restau_id): self
-    {
-        // unset the owning side of the relation if necessary
-        if ($patron_restau_id === null && $this->patron_restau_id !== null) {
-            $this->patron_restau_id->setAdminId(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($patron_restau_id !== null && $patron_restau_id->getAdminId() !== $this) {
-            $patron_restau_id->setAdminId($this);
-        }
-
-        $this->patron_restau_id = $patron_restau_id;
-
-        return $this;
-    }
 
     public function getPatronPrestataire(): ?PatronPrestataire
     {
