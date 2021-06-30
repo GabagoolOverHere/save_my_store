@@ -25,11 +25,21 @@ class RestaurantRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('r');
 
         return $query
-            ->select('r.camis', '(q.nom) AS quartier', 'r.nom', 'r.immeuble', 'r.rue', 'r.code_postal', 'r.tel', 'r.latitude', 'r.longitude', 'tp.intitule')
+            ->select('r.camis', '(q.nom) AS quartier', 'r.nom', 'r.immeuble', 'r.rue', 'r.tel', 'r.latitude', 'r.longitude', 'tp.intitule', '(tp.violation_code) AS violation')
             ->innerJoin('App\Entity\Quartier', 'q', Join::WITH, 'r.quartier = q.id')
             ->innerJoin('App\Entity\Probleme', 'p', Join::WITH, 'p.restaurant = r.id')
             ->innerJoin('App\Entity\TypeProbleme', 'tp', Join::WITH, 'p.typeProbleme = tp.id')
             ->where('r.camis > 0')
+            ->andWhere($query->expr()->orX(
+                $query->expr()->like('tp.violation_code', $query->expr()->literal('04M')),
+                $query->expr()->like('tp.violation_code', $query->expr()->literal('04L')),
+                $query->expr()->like('tp.violation_code', $query->expr()->literal('08A')),
+                $query->expr()->like('tp.violation_code', $query->expr()->literal('04N')),
+                $query->expr()->like('tp.violation_code', $query->expr()->literal('10F')),
+                $query->expr()->like('tp.violation_code', $query->expr()->literal('08C')),
+                $query->expr()->like('tp.violation_code', $query->expr()->literal('10B')),
+                $query->expr()->like('tp.violation_code', $query->expr()->literal('20D'))
+            ))
             ->getQuery()
             ->getResult()
 
