@@ -47,6 +47,17 @@ class Admin implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $isVerified = false;
 
+    /**
+     * @ORM\OneToOne(targetEntity=PatronPrestataire::class, inversedBy="user", cascade={"persist", "remove"})
+     */
+    private $patron_prestataire;
+
+    /**
+     * @ORM\OneToOne(targetEntity=PatronRestaurant::class, inversedBy="user", cascade={"persist", "remove"})
+     */
+    private $patron_restaurant;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -151,6 +162,93 @@ class Admin implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getPatronPrestataireId(): ?int
+    {
+        return $this->patron_prestataire_id;
+    }
+
+    public function setPatronPrestataireId(?int $patron_prestataire_id): self
+    {
+        $this->patron_prestataire_id = $patron_prestataire_id;
+
+        return $this;
+    }
+
+    public function getPatronRestaurantId(): ?int
+    {
+        return $this->patron_restaurant_id;
+    }
+
+    public function setPatronRestaurantId(?int $patron_restaurant_id): self
+    {
+        $this->patron_restaurant_id = $patron_restaurant_id;
+
+        return $this;
+    }
+
+    public function getPatronPrestaId(): ?PatronPrestataire
+    {
+        return $this->patron_presta_id;
+    }
+
+    public function setPatronPrestaId(PatronPrestataire $patron_presta_id): self
+    {
+        // set the owning side of the relation if necessary
+        if ($patron_presta_id->getAdminId() !== $this) {
+            $patron_presta_id->setAdminId($this);
+        }
+
+        $this->patron_presta_id = $patron_presta_id;
+
+        return $this;
+    }
+
+    public function getPatronRestauId(): ?PatronRestaurant
+    {
+        return $this->patron_restau_id;
+    }
+
+    public function setPatronRestauId(?PatronRestaurant $patron_restau_id): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($patron_restau_id === null && $this->patron_restau_id !== null) {
+            $this->patron_restau_id->setAdminId(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($patron_restau_id !== null && $patron_restau_id->getAdminId() !== $this) {
+            $patron_restau_id->setAdminId($this);
+        }
+
+        $this->patron_restau_id = $patron_restau_id;
+
+        return $this;
+    }
+
+    public function getPatronPrestataire(): ?PatronPrestataire
+    {
+        return $this->patron_prestataire;
+    }
+
+    public function setPatronPrestataire(?PatronPrestataire $patron_prestataire): self
+    {
+        $this->patron_prestataire = $patron_prestataire;
+
+        return $this;
+    }
+
+    public function getPatronRestaurant(): ?PatronRestaurant
+    {
+        return $this->patron_restaurant;
+    }
+
+    public function setPatronRestaurant(?PatronRestaurant $patron_restaurant): self
+    {
+        $this->patron_restaurant = $patron_restaurant;
 
         return $this;
     }

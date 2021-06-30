@@ -3,8 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Admin;
-use App\Entity\PatronRestaurant;
-use App\Form\RegistrationFormType;
+use App\Entity\PatronPrestataire;
+use App\Form\ServiceProviderFormType;
 use App\Repository\AdminRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,14 +14,14 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 /* N'ENREGISTRE QUE LES PATRONS DE RESTAURANT */
-class RegistrationController extends AbstractController
+class ServiceProviderController extends AbstractController
 {
-    #[Route('/registerRO', name: 'app_register_RO')]
+    #[Route('/registerSP', name: 'app_register_SP')]
     public function register(Request $request, UserPasswordHasherInterface $passwordEncoder, EntityManagerInterface $entityManager, AdminRepository $adminRepository): Response
     {
         $user = new Admin;
-        $restaurant_owner = new PatronRestaurant();
-        $form = $this->createForm(RegistrationFormType::class, $restaurant_owner);
+        $service_provider = new PatronPrestataire();
+        $form = $this->createForm(ServiceProviderFormType::class, $service_provider);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -41,15 +41,13 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-
-            //$user->setEstPatronPrestataire(false);
-            //$user->setEstPatronRestaurant(true);
-
-
+            
+            //$user->setEstPatronRestaurant(false);
+            
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($restaurant_owner);
+            $entityManager->persist($service_provider);
             $entityManager->flush();
-            $user->setPatronRestaurant($restaurant_owner);
+            $user->setPatronPrestataire($service_provider);
             $entityManager->persist($user);
             $entityManager->flush();
             // do anything else you need here, like send an email

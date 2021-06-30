@@ -59,6 +59,12 @@ class PatronRestaurant
      */
     private $restaurant;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Admin::class, mappedBy="patron_restaurant", cascade={"persist", "remove"})
+     */
+    private $user;
+    
+
     public function __construct()
     {
         $this->restaurant = new ArrayCollection();
@@ -186,5 +192,39 @@ class PatronRestaurant
     public function __toString(): string
     {
         return $this->prenom . ' ' . $this->nom;
+    }
+
+    public function getAdminId(): ?Admin
+    {
+        return $this->Admin_id;
+    }
+
+    public function setAdminId(?Admin $Admin_id): self
+    {
+        $this->Admin_id = $Admin_id;
+
+        return $this;
+    }
+
+    public function getUser(): ?Admin
+    {
+        return $this->user;
+    }
+
+    public function setUser(?Admin $user): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($user === null && $this->user !== null) {
+            $this->user->setPatronRestaurant(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($user !== null && $user->getPatronRestaurant() !== $this) {
+            $user->setPatronRestaurant($this);
+        }
+
+        $this->user = $user;
+
+        return $this;
     }
 }

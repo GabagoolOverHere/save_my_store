@@ -59,6 +59,12 @@ class PatronPrestataire
      */
     private $prestataire;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Admin::class, mappedBy="patron_prestataire", cascade={"persist", "remove"})
+     */
+    private $user;
+
+
     public function __construct()
     {
         $this->prestataire = new ArrayCollection();
@@ -186,5 +192,39 @@ class PatronPrestataire
     public function __toString(): string
     {
         return $this->prenom . ' ' . $this->nom;
+    }
+
+    public function getAdminId(): ?Admin
+    {
+        return $this->admin_id;
+    }
+
+    public function setAdminId(Admin $admin_id): self
+    {
+        $this->admin_id = $admin_id;
+
+        return $this;
+    }
+
+    public function getUser(): ?Admin
+    {
+        return $this->user;
+    }
+
+    public function setUser(?Admin $user): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($user === null && $this->user !== null) {
+            $this->user->setPatronPrestataire(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($user !== null && $user->getPatronPrestataire() !== $this) {
+            $user->setPatronPrestataire($this);
+        }
+
+        $this->user = $user;
+
+        return $this;
     }
 }
