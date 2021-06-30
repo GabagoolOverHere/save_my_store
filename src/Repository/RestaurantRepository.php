@@ -26,7 +26,7 @@ class RestaurantRepository extends ServiceEntityRepository
 
         return $query
             ->select('r.camis', '(q.nom) AS quartier', 'r.nom', 'r.immeuble', 'r.rue', 'r.tel', 'r.latitude', 'r.longitude', 'tp.intitule', '(tp.violation_code) AS violation')
-            ->innerJoin('App\Entity\Quartier', 'q', Join::WITH, 'r.quartier = q.id')
+            ->join('App\Entity\Quartier', 'q', Join::WITH, 'r.quartier = q.id')
             ->innerJoin('App\Entity\Probleme', 'p', Join::WITH, 'p.restaurant = r.id')
             ->innerJoin('App\Entity\TypeProbleme', 'tp', Join::WITH, 'p.typeProbleme = tp.id')
             ->where('r.camis > 0')
@@ -45,6 +45,7 @@ class RestaurantRepository extends ServiceEntityRepository
 
             ;
     }
+
 
     // /**
     //  * @return Restaurant[] Returns an array of Restaurant objects

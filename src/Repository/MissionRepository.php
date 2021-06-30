@@ -24,7 +24,7 @@ class MissionRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('m');
 
         return $query
-            ->select('m.descriptif', 'm.date_debut', 'm.date_fin', 'm.date_facture', 'm.montant')
+            ->select('m.id', 'm.descriptif', 'm.date_debut', 'm.date_fin', 'm.date_facture', 'm.montant')
             ->join('App\Entity\Prestataire', 'p', Join::WITH, 'm.prestataire = p.id')
             ->where('p.id = :id')
             ->setParameter(':id', $id)
@@ -33,6 +33,21 @@ class MissionRepository extends ServiceEntityRepository
 
             ;
     }
+
+    public function getRestaurant($id){
+        $query = $this->createQueryBuilder('m');
+
+        return $query
+            ->select('(r.nom) AS restaurant')
+            ->join('App\Entity\Probleme', 'p', Join::WITH, 'p.mission = m.id')
+            ->where('p.id = :id')
+            ->setParameter(':id', $id)
+            ->getQuery()
+            ->getResult()
+
+            ;
+    }
+
 
     // /**
     //  * @return Mission[] Returns an array of Mission objects

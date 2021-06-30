@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProfileController!{% endblock %}
+
+{% block body %}
+    <div class="profile-patron">
+        {% for info in infosPatron %}
+            <p>Nom du patron: {{ info.nom }}</p>
+            <p>Prénom du patron: {{ info.prenom }}</p>
+            <p>Code postal du patron: {{ info.code_postal }}</p>
+            <p>Mail du patron: {{ info.email }}</p>
+            <p>Immeuble du patron: {{ info.immeuble }}</p>
+            <p>Rue du patron: {{ info.rue }}</p>
+            <p>Tel du patron: {{ info.tel }}</p>
+        {% endfor %}
+    </div>
+    <div class="profile-prestataires">
+        {% for info in infosPrestataires %}
+            <p>Nom de la boîte: {{ info.nom_presta }}</p>
+            <p>Immeuble de la boite: {{ info.immeuble_presta }}</p>
+            <p>Rue de la boite{{ info.rue_presta }}</p>
+            <p>Code postal de la boite: {{ info.code_postal_presta }}</p>
+            <a href="/profile/service_owner/{{ info.id_presta }}/missions">Voir les Missions</a>
+        {% endfor %}
+    </div>
+{% endblock %}

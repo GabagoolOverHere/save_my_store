@@ -21,7 +21,7 @@ class ProfileController extends AbstractController
     {
         return $this->render('profile/restaurant.html.twig', [
             'patron' => $patronResto,
-            'restaurants'=>$restaurants->findBy(['patron' => $patronResto], ['nom' => 'DESC']),
+            'restaurants'=>$restaurants->findBy(['patronRestaurant' => $patronResto], ['nom' => 'DESC']),
         ]);
     }
 
@@ -42,12 +42,14 @@ class ProfileController extends AbstractController
     /**
      * @Route("/profile/service_owner/{id}/missions", name="missionsPresta")
      */
-    public function missions(PatronPrestataireRepository $patronService, int $id, MissionRepository $missions): Response
+    public function missions(PatronPrestataireRepository $patronService, int $id, MissionRepository $missions, PrestataireRepository $prestataire): Response
     {
         $allMissions = $missions->getMissions($id);
+        /*$restaurant = $prestataire->getRestaurant($id);*/
 
         return $this->render('profile/missions.html.twig', [
             'missions'=>$allMissions,
+            /*'restaurant'=>$restaurant,*/
         ]);
     }
 }

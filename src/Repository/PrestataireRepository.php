@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Prestataire;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -18,6 +19,7 @@ class PrestataireRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Prestataire::class);
     }
+
 
     // /**
     //  * @return Prestataire[] Returns an array of Prestataire objects
