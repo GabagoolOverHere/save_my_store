@@ -1,4 +1,22 @@
-#mapid{
-    height: 600px;
-    width: 1000px;
+.map-container {
+  height: 100vh;
+}
+
+#mapid {
+  height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+  background-color: rgba(33, 115, 166, 0.6);
+  height: 170px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
 }

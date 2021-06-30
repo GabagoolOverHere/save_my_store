@@ -1,15 +1,11 @@
 /* Gestion du header */
 .logo-img {
-  height: 180px;
+  height: 100px;
   border-radius: 50%;
 }
 
 .site-navbar {
   background-color: #2173a6;
-}
-
-.site-navbar .site-navigation .site-menu > li > a {
-  color: white !important;
 }
 
 .ftaw-user {
@@ -27,5 +23,26 @@
 
   p {
     color: white;
+  }
+}
+
+// Burger menu plus gros
+.icon-menu {
+  font-size: 45px;
+}
+
+.site-mobile-menu,
+.site-mobile-menu-header,
+.site-mobile-menu-body {
+  background-color: rgba(33, 115, 166, 0.9);
+}
+
+.site-mobile-menu {
+  color: white;
+}
+
+@media (max-width: 988px) {
+  .logo-img {
+    height: 80px;
   }
 }
