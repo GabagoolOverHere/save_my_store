@@ -3,24 +3,87 @@
 {% block title %}Hello ProfileController!{% endblock %}
 
 {% block body %}
-    <div class="profile-patron">
-        {% for info in infosPatron %}
-            <p>Nom du patron: {{ info.nom }}</p>
-            <p>Prénom du patron: {{ info.prenom }}</p>
-            <p>Code postal du patron: {{ info.code_postal }}</p>
-            <p>Mail du patron: {{ info.email }}</p>
-            <p>Immeuble du patron: {{ info.immeuble }}</p>
-            <p>Rue du patron: {{ info.rue }}</p>
-            <p>Tel du patron: {{ info.tel }}</p>
-        {% endfor %}
+    <div class="card-container">
+      <div class="container mt-5">
+        <div class="row mb-3">
+          <div class="missions col-8">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <p>Je suis la première missions</p>
+                </div>
+                <div class="row">
+                  <p>Je suis la seconde missions</p>
+                </div>
+                <div class="row">
+                  <p>Je suis la troisieme missions</p>
+                </div>
+                <div class="row">
+                  <p>Je suis la 4eme missions</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="info col-4">
+            {% for info in infosPatron %}
+                <div class="card">
+                  <div class="card-body">
+                    <div class="d-flex flex-column align-items-center text-center">
+                      <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+                      <div class="mt-3">
+                        <h4>John Doe</h4>
+                        <p class="text-secondary mb-1">{{ info.nom }}</p>
+                        <p class="text-secondary mb-1">{{ info.prenom }}</p>
+                        <p class="text-muted font-size-sm">{{ info.code_postal }}, {{ info.immeuble }}, {{ info.rue }}</p>
+                        <p class="text-secondary mb-1">{{ info.tel }}</p>
+                        <p class="text-secondary mb-1">{{ info.email }}</p>
+                        <button class="btn-custom ">Edit</button>
+                        <button class="btn-custom ">Ajouter une entreprise</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="row">
+          {% for info in infosPrestataires %}
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                <p>Nom de la boîte: {{ info.nom_presta }}</p>
+                <p>Immeuble de la boite: {{ info.immeuble_presta }}</p>
+                <p>Rue de la boite{{ info.rue_presta }}</p>
+                <p>Code postal de la boite: {{ info.code_postal_presta }}</p>
+                <a href="/profile/service_owner/{{ info.id_presta }}/missions">Voir les Missions</a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                <p>Nom de la boîte: </p>
+                <p>Immeuble de la boite: </p>
+                <p>Rue de la boite :</p>
+                <p>Code postal de la boite: </p>
+                <a href="/profile/service_owner/1/missions">Voir les Missions</a>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                <p>Nom de la boîte: </p>
+                <p>Immeuble de la boite: </p>
+                <p>Rue de la boite :</p>
+                <p>Code postal de la boite: </p>
+                <a href="/profile/service_owner/1/missions">Voir les Missions</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="profile-prestataires">
-        {% for info in infosPrestataires %}
-            <p>Nom de la boîte: {{ info.nom_presta }}</p>
-            <p>Immeuble de la boite: {{ info.immeuble_presta }}</p>
-            <p>Rue de la boite{{ info.rue_presta }}</p>
-            <p>Code postal de la boite: {{ info.code_postal_presta }}</p>
-            <a href="/profile/service_owner/{{ info.id_presta }}/missions">Voir les Missions</a>
-        {% endfor %}
-    </div>
+
 {% endblock %}
