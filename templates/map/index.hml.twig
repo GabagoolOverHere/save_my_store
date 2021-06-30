@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Save My Store Map : check where is the problem{% endblock %}
+
+{% block customcss %}
+    <link rel="stylesheet" href="{{ asset('scss/headerMap.min.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    <div class="map-container">
+        <div id="mapid"></div>
+    </div>
+
+    <div class="btn-container">
+        <div class="row buttons">
+            <div class="col">
+                <button id="city" onclick="resetPosition()" class="cust-btn">City</button>
+                <button id="manhattan" onclick="activateGeoJson()" class="cust-btn">Manhattan</button>
+                <button id="bronx" onclick="activateGeoJson()" class="cust-btn">Bronx</button>
+                <button id="brooklyn" onclick="activateGeoJson()" class="cust-btn">Brooklyn</button>
+                <button id="queens" onclick="activateGeoJson()" class="cust-btn">Queens</button>
+                <button id="staten" onclick="activateGeoJson()" class="cust-btn">Staten Island</button>
+            </div>
+            <div class="col">
+
+            </div>
+            <div class="col">
+                Rat / Cafard / etc
+            </div>
+        </div>
+    </div>
+
+    <div class="restaurants">
+        {% for restaurant in restaurants %}
+            <div id="restaurant{{ restaurant.camis }}"
+                 data-quartier="{{ restaurant.quartier }}"
+                 data-nom="{{ restaurant.nom }}"
+                 data-immeuble="{{ restaurant.immeuble }}"
+                 data-rue="{{ restaurant.rue }}"
+                 data-tel="{{ restaurant.tel }}"
+                 data-latitude="{{ restaurant.latitude }}"
+                 data-longitude="{{ restaurant.longitude }}"
+                 data-camis="{{ restaurant.camis }}"
+                 data-intitule="{{ restaurant.intitule }}"
+                 data-violation="{{ restaurant.violation }}">
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+
+{% block footer %} {% endblock %}
