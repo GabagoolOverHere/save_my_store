@@ -4,7 +4,9 @@ namespace App\Repository;
 
 use App\Entity\TypeProbleme;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\Probleme;
 
 /**
  * @method TypeProbleme|null find($id, $lockMode = null, $lockVersion = null)
@@ -18,6 +20,7 @@ class TypeProblemeRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, TypeProbleme::class);
     }
+
 
     // /**
     //  * @return TypeProbleme[] Returns an array of TypeProbleme objects
