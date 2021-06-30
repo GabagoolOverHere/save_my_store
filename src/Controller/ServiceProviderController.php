@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-/* N'ENREGISTRE QUE LES PATRONS DE RESTAURANT */
+/* N'ENREGISTRE QUE LES PATRONS DE PRESTATAIRES */
 class ServiceProviderController extends AbstractController
 {
     #[Route('/registerSP', name: 'app_register_SP')]
