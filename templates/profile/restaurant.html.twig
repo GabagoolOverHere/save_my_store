@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProfileController!{% endblock %}
+
+{% block body %}
+<div class="profile">
+    {{ patron }}
+    {% for restaurant in restaurants %}
+        {{ restaurant.nom }}
+    {% endfor %}
+</div>
+{% endblock %}
