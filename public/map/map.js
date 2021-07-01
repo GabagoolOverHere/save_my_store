@@ -102,7 +102,6 @@ let restaurantsNodeList = document.querySelectorAll('div.restaurants > div');
 let restaurantDivs = Array.from(restaurantsNodeList);
 restaurantDivs.shift();
 
-console.log(restaurantDivs);
 /**
  * On classe les divs par quartiers
  */
@@ -143,16 +142,73 @@ let manhattanMarkersSet = [];
 let queensMarkersSet = [];
 let statenMarkersSet = [];
 
+let verminMarkersSet = [];
+let surfaceMarkersSet = [];
+let chemicalMarkersSet = [];
+let plumbingMarkersSet = [];
+let hygieneMarkersSet = [];
+let temperatureMarkersSet = [];
+let lightingMarkersSet = [];
+let ventilationMarkersSet = [];
+let resucitationMarkersSet = [];
+
+
+
 /**
  * Transforme un tableau de divs en tableau de markers
  * @param divs: le tableau de div qu'on désire transformer en marker
  * @param name: le nom de la variable souhaité
  * @param array: le tableau dans lequel on met tous les markers nouvellement créés
  */
-function createMarkers(divs, name, array) {
+function createMarkers(divs, name, variableArray) {
+
     for (i = 0; i < divs.length; i++) {
+
+        let v1 = divs[i].dataset.violation == '04M';
+        let v2 = divs[i].dataset.violation == '04L';
+        let v3 = divs[i].dataset.violation == '08A';
+        let v4 = divs[i].dataset.violation == '04N';
+        let v5 = divs[i].dataset.violation == '04K';
+        let v6 = divs[i].dataset.violation == '04O';
+        let s1 = divs[i].dataset.violation == '10F';
+        let s2 = divs[i].dataset.violation == '05C';
+        let c1 = divs[i].dataset.violation == '08C';
+        let c2 = divs[i].dataset.violation == '05B';
+        let c3 = divs[i].dataset.violation == '04E';
+        let p1 = divs[i].dataset.violation == '10B';
+        let p2 = divs[i].dataset.violation == '05A';
+        let h1 = divs[i].dataset.violation == '10H';
+        let h2 = divs[i].dataset.violation == '05H';
+        let h3 = divs[i].dataset.violation == '05D';
+        let t1 = divs[i].dataset.violation == '10E';
+        let t2 = divs[i].dataset.violation == '05F';
+        let l1 = divs[i].dataset.violation == '10C';
+        let vent1 = divs[i].dataset.violation == '10D';
+        let r1 = divs[i].dataset.violation == '20D';
+
         window[name + i] = L.marker([divs[i].dataset.latitude, divs[i].dataset.longitude]).bindPopup("<p class='text-center h4 font-weight-bold text-dark'>" + divs[i].dataset.nom + "</p>" + divs[i].dataset.immeuble + " - " + divs[i].dataset.rue + "<br>Phone: " + divs[i].dataset.tel + "<br><p style='color:#dc3545;'>"+ divs[i].dataset.violation + ": " + divs[i].dataset.intitule +"</p><div class='d-flex justify-content-center align-items-center'><button class='btn btn-primary'>Contact</button></div>");
-        array.push(window[name + i]);
+
+        variableArray.push(window[name + i]);
+
+        if (v1 || v2 || v3 || v4 || v5 || v6 ){
+            verminMarkersSet.push(window[name + i]);
+        } else if (s1 || s2){
+            surfaceMarkersSet.push(window[name + i]);
+        } else if (c1 || c2 || c3){
+            chemicalMarkersSet.push(window[name + i]);
+        } else if (p1 || p2) {
+            plumbingMarkersSet.push(window[name + i]);
+        } else if (h1 || h2 || h3){
+            hygieneMarkersSet.push(window[name + i]);
+        } else if (t1 || t2){
+            temperatureMarkersSet.push(window[name + i]);
+        } else if (l1){
+            lightingMarkersSet.push(window[name + i]);
+        } else if (vent1){
+            ventilationMarkersSet.push(window[name + i]);
+        } else if (r1){
+            resucitationMarkersSet.push(window[name + i]);
+        }
     }
 }
 
@@ -172,7 +228,29 @@ let manhattanMarkers = L.layerGroup(manhattanMarkersSet);
 let queensMarkers = L.layerGroup(queensMarkersSet);
 let statenMarkers = L.layerGroup(statenMarkersSet);
 
+let verminMarkers = L.layerGroup(verminMarkersSet);
+let surfaceMarkers = L.layerGroup(surfaceMarkersSet);
+let chemicalMarkers = L.layerGroup(chemicalMarkersSet);
+let plumbingMarkers = L.layerGroup(plumbingMarkersSet);
+let hygieneMarkers = L.layerGroup(hygieneMarkersSet);
+let temperatureMarkers = L.layerGroup(temperatureMarkersSet);
+let lightingMarkers = L.layerGroup(lightingMarkersSet);
+let ventilationMarkers = L.layerGroup(ventilationMarkersSet);
+let resucitationMarkers = L.layerGroup(resucitationMarkersSet);
 
+let overlay = {
+    'Vermin': verminMarkers,
+    'Surface': surfaceMarkers,
+    'Chemicals': chemicalMarkers,
+    'Plumbing': plumbingMarkers,
+    'Hygiene': hygieneMarkers,
+    'Temperature': temperatureMarkers,
+    'Lighting': lightingMarkers,
+    'Ventilation': ventilationMarkers,
+    'Resucitation': resucitationMarkers
+}
+
+L.control.layers(overlay).addTo(mymap);
 /**
  * Supprime tous les markers de la carte
  */
