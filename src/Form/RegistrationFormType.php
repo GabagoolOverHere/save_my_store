@@ -38,7 +38,7 @@ class RegistrationFormType extends AbstractType
             ->add('prenom', TextType::class, ['label' => 'Firstname'])
             ->add('immeuble', TextType::class, ['label' => 'Building'])
             ->add('tel', TelType::class, ['label' => 'Phone number'])
-            ->add('rue', TextType::class, ['label' => 'Street :'])
+            ->add('rue', TextType::class, ['label' => 'Street'])
             ->add('code_postal', TextType::class, ['label' => 'Zipcode'])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,

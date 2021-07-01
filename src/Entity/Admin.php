@@ -166,20 +166,6 @@ class Admin implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPatronPrestataireId(): ?int
-    {
-        return $this->patron_prestataire_id;
-    }
-
-    public function setPatronPrestataireId(?int $patron_prestataire_id): self
-    {
-        $this->patron_prestataire_id = $patron_prestataire_id;
-
-        return $this;
-    }
-
-
-
     public function getPatronPrestataire(): ?PatronPrestataire
     {
         return $this->patron_prestataire;
