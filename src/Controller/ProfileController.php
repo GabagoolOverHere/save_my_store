@@ -11,17 +11,21 @@ use App\Repository\PatronPrestataireRepository;
 use App\Repository\PrestataireRepository;
 use App\Repository\MissionRepository;
 use Symfony\Component\HttpFoundation\Request;
+use App\Repository\PatronRestaurantRepository;
 
 class ProfileController extends AbstractController
 {
     /**
      * @Route("/profile/restaurant_owner/{id}", name="profileResto")
      */
-    public function resto(PatronRestaurant $patronResto, RestaurantRepository $restaurants): Response
+    public function resto(PatronRestaurantRepository $patronResto, int $id): Response
     {
+        $infosPatron = $patronResto->getPatronInfos($id);
+        $infosRestaurants = $patronResto->getRestaurantsInfos(($id));
+
         return $this->render('profile/restaurant.html.twig', [
-            'patron' => $patronResto,
-            'restaurants'=>$restaurants->findBy(['patronRestaurant' => $patronResto], ['nom' => 'DESC']),
+            'infosPatron' => $infosPatron,
+            'infosRestaurants'=>$infosRestaurants,
         ]);
     }
 

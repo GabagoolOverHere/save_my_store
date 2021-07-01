@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\PatronRestaurant;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -17,6 +18,33 @@ class PatronRestaurantRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, PatronRestaurant::class);
+    }
+
+    public function getPatronInfos(int $id){
+        $query = $this->createQueryBuilder('pr');
+
+        return $query
+            ->select('pr.nom', 'pr.prenom', 'pr.code_postal', 'pr.email', 'pr.immeuble', 'pr.rue', 'pr.tel')
+            ->where('pr.id = :id')
+            ->setParameter(':id', $id)
+            ->getQuery()
+            ->getResult()
+
+            ;
+    }
+
+    public function getRestaurantsInfos(int $id){
+        $query = $this->createQueryBuilder('pr');
+
+        return $query
+            ->select('r.camis', '(r.id) AS id_resto', '(r.nom) AS nom_resto', '(r.immeuble) AS immeuble_resto', '(r.rue) AS rue_resto', '(r.code_postal) AS code_postal_resto')
+            ->Join('App\Entity\Restaurant', 'r', Join::WITH, 'r.patronRestaurant = pr.id')
+            ->where('pr.id = :id')
+            ->setParameter(':id', $id)
+            ->getQuery()
+            ->getResult()
+
+            ;
     }
 
     // /**
