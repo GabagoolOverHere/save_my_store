@@ -44,7 +44,7 @@ class ServiceProviderController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-            
+
             // Creation de l'entité prestataire
             $share_info=$form->get('share_info')->getData();
             $enterprise->setNom($form->get('nom_societe')->getData());
@@ -63,7 +63,7 @@ class ServiceProviderController extends AbstractController
                 $enterprise->setImmeuble($form->get('immeuble_societe')->getData());
                 $enterprise->setCodePostal($form->get('code_postal_societe')->getData());
             }
-            
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($service_provider);
             $entityManager->flush();
@@ -78,8 +78,8 @@ class ServiceProviderController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-        return $this->render('registration/register.html.twig', [
-            'registrationForm' => $form->createView(),
+        return $this->render('registration/patronPrestataire.html.twig', [
+            'patronPrestataireForm' => $form->createView(),
         ]);
     }
 }
