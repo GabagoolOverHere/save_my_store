@@ -5,11 +5,11 @@
 {% block body %}
     <div class="profile-patron">
         {% for mission in missions %}
-            <p>{{ mission.descriptif }}</p>
-            <p>{{ mission.date_debut|format_datetime('medium', 'short') }}</p>
-            <p>{{ mission.date_fin|format_datetime('medium', 'short') }}</p>
-            <p>{{ mission.date_facture|format_datetime('medium', 'short') }}</p>
-            <p>{{ mission.montant }}</p>
+            <p class="text-secondary mb-1">{{ mission.descriptif }}</p>
+            <p class="text-secondary mb-1">{{ mission.date_debut|format_datetime('medium', 'short') }}</p>
+            <p class="text-secondary mb-1">{{ mission.date_fin|format_datetime('medium', 'short') }}</p>
+            <p class="text-secondary mb-1">{{ mission.date_facture|format_datetime('medium', 'short') }}</p>
+            <p class="text-secondary mb-1">{{ mission.montant }}</p>
         {% endfor %}
     </div>
 {% endblock %}

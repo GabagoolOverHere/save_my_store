@@ -2,15 +2,13 @@
 
 namespace App\Controller;
 
+use App\Repository\RestaurantRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\PatronRestaurant;
-use App\Repository\RestaurantRepository;
 use App\Repository\PatronPrestataireRepository;
 use App\Repository\PrestataireRepository;
 use App\Repository\MissionRepository;
-use Symfony\Component\HttpFoundation\Request;
 use App\Repository\PatronRestaurantRepository;
 
 class ProfileController extends AbstractController
@@ -25,7 +23,21 @@ class ProfileController extends AbstractController
 
         return $this->render('profile/restaurant.html.twig', [
             'infosPatron' => $infosPatron,
-            'infosRestaurants'=>$infosRestaurants,
+            'infosRestaurants' => $infosRestaurants,
+        ]);
+    }
+
+    /**
+     * @Route("/profile/restaurant_owner/{id}/missions", name="missionsResto")
+     */
+    public function missionsResto(
+        int $id,
+        RestaurantRepository $restaurants
+    ): Response {
+        $allMissions = $restaurants->getRestoMissions($id);
+
+        return $this->render('profile/missions.html.twig', [
+            'missions' => $allMissions,
         ]);
     }
 
@@ -39,20 +51,24 @@ class ProfileController extends AbstractController
 
         return $this->render('profile/service.html.twig', [
             'infosPatron' => $infosPatron,
-            'infosPrestataires'=>$infosPrestataires,
+            'infosPrestataires' => $infosPrestataires,
         ]);
     }
 
     /**
      * @Route("/profile/service_owner/{id}/missions", name="missionsPresta")
      */
-    public function missions(PatronPrestataireRepository $patronService, int $id, MissionRepository $missions, PrestataireRepository $prestataire): Response
-    {
-        $allMissions = $missions->getMissions($id);
+    public function missionsPresta(
+        PatronPrestataireRepository $patronService,
+        int $id,
+        MissionRepository $missions,
+        PrestataireRepository $prestataire
+    ): Response {
+        $allMissions = $missions->getPrestaMissions($id);
         /*$restaurant = $prestataire->getRestaurant($id);*/
 
         return $this->render('profile/missions.html.twig', [
-            'missions'=>$allMissions,
+            'missions' => $allMissions,
             /*'restaurant'=>$restaurant,*/
         ]);
     }

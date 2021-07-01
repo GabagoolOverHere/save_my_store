@@ -20,7 +20,7 @@ class MissionRepository extends ServiceEntityRepository
         parent::__construct($registry, Mission::class);
     }
 
-    public function getMissions($id){
+    public function getPrestaMissions($id){
         $query = $this->createQueryBuilder('m');
 
         return $query
