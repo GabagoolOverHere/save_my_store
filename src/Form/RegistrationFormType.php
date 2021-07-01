@@ -32,14 +32,14 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', TextType::class, ['mapped' => false]) 
+            ->add('username', TextType::class, ['mapped' => false])
             ->add('email', EmailType::class)
-            ->add('nom', TextType::class,['label' => 'Name :'])
-            ->add('prenom', TextType::class,['label' => 'Surname :'])
-            ->add('immeuble', TextType::class,['label' => 'Your building :'])
-            ->add('tel', TelType::class,['label' => 'Your phone number :'])
-            ->add('rue', TextType::class,['label' => 'Your street :'])
-            ->add('code_postal', TextType::class,['label' => 'Zipcode :'])
+            ->add('nom', TextType::class, ['label' => 'Lastname'])
+            ->add('prenom', TextType::class, ['label' => 'Firstname'])
+            ->add('immeuble', TextType::class, ['label' => 'Building'])
+            ->add('tel', TelType::class, ['label' => 'Phone number'])
+            ->add('rue', TextType::class, ['label' => 'Street :'])
+            ->add('code_postal', TextType::class, ['label' => 'Zipcode'])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
@@ -58,7 +58,7 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add('Restaurant', EntityType::class, ['class' => Restaurant::class, 'choice_label'=>'camis', 'mapped'=>false, 'placeholder' => 'Select your camis'])
-            ->add('Validate', SubmitType::class)
+            ->add('submit', SubmitType::class, ['label' =>"Submit", "attr" => ['class' => 'btn-custom']])
         ;
     }
 
