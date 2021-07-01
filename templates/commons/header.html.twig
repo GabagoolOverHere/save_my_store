@@ -36,10 +36,12 @@
                         <li><a href="/map" class="nav-link w-color">Map</a></li>
                         <li><a href="/contact" class="nav-link w-color">Contact</a></li>
                         {% if app.user.patronrestaurant.id is defined %}
-                            <li><a href="/profile/restaurant_owner/{{ app.user.patronrestaurant.id }}" class="nav-link far fa-user ftaw-user w-color"></a></li>
+                            <li><a href="/profile/restaurant_owner/{{ app.user.patronrestaurant.id }}"
+                                   class="nav-link far fa-user ftaw-user w-color"></a></li>
                         {% endif %}
                         {% if app.user.patronprestataire.id is defined %}
-                            <li><a href="/profile/service_owner/{{ app.user.patronprestataire.id }}" class="nav-link far fa-user ftaw-user w-color"></a></li>
+                            <li><a href="/profile/service_owner/{{ app.user.patronprestataire.id }}"
+                                   class="nav-link far fa-user ftaw-user w-color"></a></li>
                         {% endif %}
                     </ul>
                 </nav>

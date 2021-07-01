@@ -38,7 +38,22 @@ class RestaurantRepository extends ServiceEntityRepository
                 $query->expr()->like('tp.violation_code', $query->expr()->literal('10F')),
                 $query->expr()->like('tp.violation_code', $query->expr()->literal('08C')),
                 $query->expr()->like('tp.violation_code', $query->expr()->literal('10B')),
-                $query->expr()->like('tp.violation_code', $query->expr()->literal('20D'))
+                $query->expr()->like('tp.violation_code', $query->expr()->literal('20D')),
+                $query->expr()->like('tp.violation_code', $query->expr()->literal('05H')),
+                $query->expr()->like('tp.violation_code', $query->expr()->literal('05E')),
+                $query->expr()->like('tp.violation_code', $query->expr()->literal('05D')),
+                $query->expr()->like('tp.violation_code', $query->expr()->literal('10C')),
+                $query->expr()->like('tp.violation_code', $query->expr()->literal('04J')),
+                $query->expr()->like('tp.violation_code', $query->expr()->literal('04J')),
+                $query->expr()->like('tp.violation_code', $query->expr()->literal('10A')),
+                $query->expr()->like('tp.violation_code', $query->expr()->literal('10E')),
+                $query->expr()->like('tp.violation_code', $query->expr()->literal('10D')),
+                $query->expr()->like('tp.violation_code', $query->expr()->literal('05F')),
+                $query->expr()->like('tp.violation_code', $query->expr()->literal('05C')),
+                $query->expr()->like('tp.violation_code', $query->expr()->literal('05A')),
+                $query->expr()->like('tp.violation_code', $query->expr()->literal('05B')),
+                $query->expr()->like('tp.violation_code', $query->expr()->literal('04O')),
+                $query->expr()->like('tp.violation_code', $query->expr()->literal('10H'))
             ))
             ->getQuery()
             ->getResult()
