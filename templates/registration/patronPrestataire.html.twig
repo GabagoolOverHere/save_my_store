@@ -11,56 +11,119 @@
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
 
-    <h1>Register</h1>
-
     {{ form_start(patronPrestataireForm) }}
-<div class="container">
-  <form>
-    <div class="form-row">
-  <div class="form-group col-md-6">
-    <label for="inputEmail4">Email</label>
-    <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
-  </div>
-  <div class="form-group col-md-6">
-    <label for="inputPassword4">Password</label>
-    <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
-  </div>
+    <div class="container mb-4 mt-4">
+      <div class="card">
+        <div class="card-body">
+          <form>
+            <div class="card-body">
+              <div class="cust-cont-center">
+                <h2 class="cust-form-title">Create your account in Save My Store</h2>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-3">
+                    {{ form_label(patronPrestataireForm.username)}}
+                    {{ form_widget(patronPrestataireForm.username, { 'attr': {'class': 'form-control'} })}}
+                </div>
+                <div class="form-group col-md-6">
+                  {{ form_label(patronPrestataireForm.plainPassword)}}
+                    {{ form_widget(patronPrestataireForm.plainPassword, { 'attr': {'class': 'form-control'} })}}
+                </div>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <div class="cust-cont-center">
+                <h2 class="cust-form-title">Fill in your details</h2>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-3">
+                  {{ form_label(patronPrestataireForm.nom)}}
+                    {{ form_widget(patronPrestataireForm.nom, { 'attr': {'class': 'form-control'} })}}
+                </div>
+
+                <div class="form-group col-md-3">
+                    {{ form_label(patronPrestataireForm.prenom)}}
+                    {{ form_widget(patronPrestataireForm.prenom, { 'attr': {'class': 'form-control'} })}}
+                </div>
+                <div class="form-group col-md-3">
+                    {{ form_label(patronPrestataireForm.tel)}}
+                    {{ form_widget(patronPrestataireForm.tel, { 'attr': {'class': 'form-control'} })}}
+                </div>
+                <div class="form-group col-md-3">
+                    {{ form_label(patronPrestataireForm.email)}}
+                    {{ form_widget(patronPrestataireForm.email, { 'attr': {'class': 'form-control'} })}}
+                </div>
+
+                <div class="form-group col-md-3">
+                  {{ form_label(patronPrestataireForm.rue)}}
+                  {{ form_widget(patronPrestataireForm.rue, { 'attr': {'class': 'form-control'} })}}
+                </div>
+                <div class="form-group col-md-3">
+                  {{ form_label(patronPrestataireForm.immeuble)}}
+                  {{ form_widget(patronPrestataireForm.immeuble, { 'attr': {'class': 'form-control'} })}}
+                </div>
+                <div class="form-group col-md-3">
+                  {{ form_label(patronPrestataireForm.code_postal)}}
+                  {{ form_widget(patronPrestataireForm.code_postal, { 'attr': {'class': 'form-control'} })}}
+                </div>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <div class="cust-cont-center">
+                <h2 class="cust-form-title">Create your company</h2>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-3">
+                  {{ form_label(patronPrestataireForm.nom_societe)}}
+                    {{ form_widget(patronPrestataireForm.nom_societe, { 'attr': {'class': 'form-control'} })}}
+                </div>
+
+                <div class="form-group col-md-3">
+                    {{ form_label(patronPrestataireForm.tel_societe)}}
+                    {{ form_widget(patronPrestataireForm.tel_societe, { 'attr': {'class': 'form-control'} })}}
+                </div>
+                <div class="form-group col-md-3">
+                    {{ form_label(patronPrestataireForm.email_societe)}}
+                    {{ form_widget(patronPrestataireForm.email_societe, { 'attr': {'class': 'form-control'} })}}
+                </div>
+
+                <div class="form-group col-md-3">
+                  {{ form_label(patronPrestataireForm.rue_societe)}}
+                  {{ form_widget(patronPrestataireForm.rue_societe, { 'attr': {'class': 'form-control'} })}}
+                </div>
+                <div class="form-group col-md-3">
+                  {{ form_label(patronPrestataireForm.immeuble_societe)}}
+                  {{ form_widget(patronPrestataireForm.immeuble_societe, { 'attr': {'class': 'form-control'} })}}
+                </div>
+                <div class="form-group col-md-3">
+                  {{ form_label(patronPrestataireForm.code_postal_societe)}}
+                  {{ form_widget(patronPrestataireForm.code_postal_societe, { 'attr': {'class': 'form-control'} })}}
+                </div>
+                <div class="form-group col-md-3">
+                  {{ form_label(patronPrestataireForm.quartier_societe)}}
+                  {{ form_widget(patronPrestataireForm.quartier_societe, { 'attr': {'class': 'form-control'} })}}
+                </div>
+                <div class="form-group col-md-3">
+                  {{ form_label(patronPrestataireForm.share_info)}}
+                  {{ form_widget(patronPrestataireForm.share_info, { 'attr': {'class': 'form-control'} })}}
+                </div>
+                <div class="form-group col-md-3" >
+                  {{ form_label(patronPrestataireForm.tarif_societe)}}
+                  {{ form_widget(patronPrestataireForm.tarif_societe, { 'attr': {'class': 'form-control'} })}}
+                </div>
+              </div>
+            </div>
+
+              <div class="d-flex justify-content-end">
+              {{ form_widget(patronPrestataireForm.submit)}}
+            </div>
+            {{ form_rest(patronPrestataireForm) }}
+          </form>
+        </div>
+      </div>
     </div>
-    <div class="form-group">
-  <label for="inputAddress">Address</label>
-  <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-    </div>
-    <div class="form-group">
-  <label for="inputAddress2">Address 2</label>
-  <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-    </div>
-    <div class="form-row">
-  <div class="form-group col-md-6">
-    <label for="inputCity">City</label>
-    <input type="text" class="form-control" id="inputCity">
-  </div>
-  <div class="form-group col-md-4">
-    <label for="inputState">State</label>
-    <select id="inputState" class="form-control">
-      <option selected>Choose...</option>
-      <option>...</option>
-    </select>
-  </div>
-  <div class="form-group col-md-2">
-    <label for="inputZip">Zip</label>
-    <input type="text" class="form-control" id="inputZip">
-  </div>
-    </div>
-    <div class="form-group">
-  <div class="form-check">
-    <input class="form-check-input" type="checkbox" id="gridCheck">
-    <label class="form-check-label" for="gridCheck">
-      Check me out
-    </label>
-  </div>
-    </div>
-    <button type="submit" class="btn btn-primary">Sign in</button>
-  </form>
-</div>
+
     {{ form_end(patronPrestataireForm) }}
 {% endblock %}

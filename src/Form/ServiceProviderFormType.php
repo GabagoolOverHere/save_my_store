@@ -32,14 +32,14 @@ class ServiceProviderFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', TextType::class, ['mapped' => false]) 
+            ->add('username', TextType::class, ['mapped' => false])
             ->add('email', EmailType::class)
-            ->add('nom', TextType::class,['label' => 'Name :'])
-            ->add('prenom', TextType::class,['label' => 'Surname :'])
-            ->add('tel', TelType::class,['label' => 'Phone number :'])
-            ->add('immeuble', TextType::class,['label' => 'Building :', 'required'=>false])
-            ->add('rue', TextType::class,['label' => 'Street :'])
-            ->add('code_postal', NumberType::class,['label' => 'Zipcode :'])
+            ->add('nom', TextType::class, ['label' => 'Lastname'])
+            ->add('prenom', TextType::class, ['label' => 'Firstname'])
+            ->add('tel', TelType::class, ['label' => 'Phone number'])
+            ->add('immeuble', TextType::class, ['label' => 'Building', 'required'=>false])
+            ->add('rue', TextType::class, ['label' => 'Street'])
+            ->add('code_postal', NumberType::class, ['label' => 'Zipcode'])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
@@ -57,17 +57,17 @@ class ServiceProviderFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('nom_societe',TextType::class, ['mapped'=>false])
-            ->add('tarif_societe',NumberType::class, ['mapped'=>false])
-            ->add('quartier_societe', EntityType::class, ['class' => Quartier::class, 'choice_label'=>'nom', 'mapped'=>false, 'placeholder' => 'Select your quarter'])
+            ->add('nom_societe', TextType::class, ['label' => 'Company Name', 'mapped'=>false])
+            ->add('tarif_societe', NumberType::class, ['mapped'=>false])
+            ->add('quartier_societe', EntityType::class, ['label' => 'District', 'class' => Quartier::class, 'choice_label'=>'nom', 'mapped'=>false, 'placeholder' => ''])
             ->add('share_info', CheckboxType::class, ['label'=>'My informations and the service society\'s are the same.','mapped'=>false])
-            ->add('email_societe',EmailType::class, ['mapped'=>false, 'required'=>false])
-            ->add('tel_societe',TelType::class, ['mapped'=>false, 'required'=>false])
-            ->add('immeuble_societe',TextType::class, ['mapped'=>false, 'required'=>false])
-            ->add('rue_societe',TextType::class, ['mapped'=>false, 'required'=>false])
-            ->add('code_postal_societe',NumberType::class, ['mapped'=>false, 'required'=>false])
+            ->add('email_societe', EmailType::class, ['label' => 'Email', 'mapped'=>false, 'required'=>false])
+            ->add('tel_societe', TelType::class, ['label' => 'Tel', 'mapped'=>false, 'required'=>false])
+            ->add('immeuble_societe', TextType::class, ['label' => 'Building','mapped'=>false, 'required'=>false])
+            ->add('rue_societe', TextType::class, ['label' => 'Street', 'mapped'=>false, 'required'=>false])
+            ->add('code_postal_societe', NumberType::class, ['label' => 'Zipcode', 'mapped'=>false, 'required'=>false])
 
-            ->add('Validate', SubmitType::class)
+            ->add('submit', SubmitType::class, ['label' =>"Submit", "attr" => ['class' => 'btn-custom']])
         ;
     }
 

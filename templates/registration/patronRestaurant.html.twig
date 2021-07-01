@@ -72,19 +72,19 @@
           </div>
           <div class="card-body">
             <div class="cust-cont-center">
-              <h2 class="cust-form-title">Find or create your restaurant</h2>
+              <h2 class="cust-form-title">Find your restaurant</h2>
             </div>
             <div class="cust-cont-center">
               <div class="cammis-choice-cont">
                 {{ form_label(patronRestaurantForm.Restaurant)}}
                 {{ form_widget(patronRestaurantForm.Restaurant)}}
               </div>
-                <div class="btn-custom"> Create</div>
             </div>
           </div>
             <div class="d-flex justify-content-end">
             {{ form_widget(patronRestaurantForm.submit)}}
           </div>
+          {{ form_rest(patronRestaurantForm) }}
         </form>
       </div>
     </div>
