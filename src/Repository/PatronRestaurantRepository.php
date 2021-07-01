@@ -47,6 +47,17 @@ class PatronRestaurantRepository extends ServiceEntityRepository
             ;
     }
 
+    public function getAdminInfos(int $id)
+    {
+        $query = $this->createQueryBuilder('pr');
+
+        return $query
+        ->select('a.id', 'a.username')
+        ->Join('App\Entity\Admin', 'a', Join::WITH, 'a.patron_restaurant = pr.id')
+        ->where('pr.id = :id')
+        ->setParameter(':id', $id);
+    }
+
     // /**
     //  * @return PatronRestaurant[] Returns an array of PatronRestaurant objects
     //  */

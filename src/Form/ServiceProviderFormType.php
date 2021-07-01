@@ -57,15 +57,9 @@ class ServiceProviderFormType extends AbstractType
                     ]),
                 ],
             ])
-<<<<<<< HEAD
-            ->add('nom_societe',TextType::class, ['mapped'=>false])
-            ->add('tarif_societe',NumberType::class, ['mapped'=>false])
-            ->add('quartier_societe', EntityType::class, ['class' => Quartier::class, 'choice_label'=>'nom', 'mapped'=>false, 'placeholder' => 'Select your boro :'])
-=======
             ->add('nom_societe', TextType::class, ['label' => 'Company Name', 'mapped'=>false])
             ->add('tarif_societe', NumberType::class, ['mapped'=>false])
             ->add('quartier_societe', EntityType::class, ['label' => 'District', 'class' => Quartier::class, 'choice_label'=>'nom', 'mapped'=>false, 'placeholder' => ''])
->>>>>>> f5fb438a16429fd64f77eee3c947e8ae52392aa2
             ->add('share_info', CheckboxType::class, ['label'=>'My informations and the service society\'s are the same.','mapped'=>false])
             ->add('email_societe', EmailType::class, ['label' => 'Email', 'mapped'=>false, 'required'=>false])
             ->add('tel_societe', TelType::class, ['label' => 'Tel', 'mapped'=>false, 'required'=>false])

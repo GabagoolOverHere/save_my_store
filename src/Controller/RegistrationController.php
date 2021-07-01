@@ -6,7 +6,10 @@ use App\Entity\Admin;
 use App\Entity\Restaurant;
 use App\Entity\PatronRestaurant;
 use App\Form\RegistrationFormType;
+use App\Form\LinkRestaurantToOwnerFormType;
+use App\Form\EditRestaurantOwnerFormType;
 use App\Repository\AdminRepository;
+use App\Repository\PatronRestaurantRepository;
 use App\Repository\RestaurantRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -15,6 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Form\FormTypeInterface;
 
 /* N'ENREGISTRE QUE LES PATRONS DE RESTAURANT */
 class RegistrationController extends AbstractController
@@ -63,33 +67,61 @@ class RegistrationController extends AbstractController
         ]);
     }
 
-    #[Route('/EditRO', name: 'Edit_RO')]
-    public function EditRestaurantOwner(Request $request, EntityManager $em, UserPasswordHasherInterface $passwordEncoder, AdminRepository $adminRepository, PatronRestaurant $restaurant_owner)
+    /**
+     * @Route("/profile/edit_profile_ro/{id}", name="editRO")
+     */
+    public function EditRestaurantOwner(Request $request, EntityManagerInterface $em, $id)
     {
-        $user = $this->getUser();
-        $restaurant_owner = $user->getPatronRestaurant();
-        $form = $this->createForm(EditRestaurantOwnerFormType::class, $restaurant_owner);
+        $em = $this->getDoctrine()->getManager();
+        $restaurant_owner = $em->getRepository(PatronRestaurant::class)->find($id);
+        $form = $this->createForm(RegistrationFormType::class, $restaurant_owner);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            return $this->redirectToRoute('profileResto');
+            
+        }
+
+        return $this->render('registration/patronRestaurant.html.twig', [
+        'patronRestaurantForm'=> $form->createView()
+        ]);
+    }
+    /**
+     * @Route("/profile/edit_user/{id}", name="editUser")
+     */
+    public function EditUser(Request $request, EntityManagerInterface $em, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository(Admin::class)->find($id);
+        $form = $this->createForm(RegistrationFormType::class, $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            return $this->redirectToRoute('profileResto');
+            
+        }
+
+        return $this->render('registration/patronRestaurant.html.twig', [
+        'patronRestaurantForm'=> $form->createView()
+        ]);
+    }
+
+    public function AddRestaurantToOwner(Request $request, EntityManager $em, PatronRestaurantRepository $restaurant_owner)
+    {
+        $restaurant_owner->getPatronInfos('id');
+        $form = $this->createForm(LinkRestaurantToOwnerFormType::class, $restaurant_owner);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $username = $form->get('username')->getData();
             $restaurant_id = $form->get('Restaurant')->getData('ID');
-            $count = $adminRepository->findBy(['username' => $username]);
-            if ($count) {
-                $this->addFlash('error', 'Username already used, please make another choice.');
-                return $this->redirectToRoute('home');
-            }
-            $user->setUsername($username);
-            $user->setRoles(["ROLE_USER"]);
-            $user->setEmail($form->get('email')->getData());
-            //encode the plain password
-            $user->setPassword(
-                $passwordEncoder->hashPassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($restaurant_owner);
             $em->flush();

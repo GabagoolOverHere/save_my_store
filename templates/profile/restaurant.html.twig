@@ -18,8 +18,12 @@
                                 , {{ info.rue }}</p>
                             <p class="text-secondary mb-1">{{ info.tel }}</p>
                             <p class="text-secondary mb-1">{{ info.email }}</p>
+                            <a href="/profile/edit_profile_ro/{{ app.user.patronrestaurant.id }}" class="nav-link far fa-user ftaw-user w-color">
                             <button class="btn-custom ">Edit</button>
+                            </a>
+                            <a href="/profile/add_restaurant_ro/{{ app.user.patronrestaurant.id }}" class="nav-link far fa-user ftaw-user w-color">
                             <button class="btn-custom">Ajouter une entreprise</button>
+                            </a>
                         </div>
                     </div>
                 </div>

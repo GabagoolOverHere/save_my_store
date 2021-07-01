@@ -21,10 +21,12 @@ class ProfileController extends AbstractController
     {
         $infosPatron = $patronResto->getPatronInfos($id);
         $infosRestaurants = $patronResto->getRestaurantsInfos(($id));
+        $infosAdmin = $patronResto->getAdminInfos($id);
 
         return $this->render('profile/restaurant.html.twig', [
             'infosPatron' => $infosPatron,
             'infosRestaurants' => $infosRestaurants,
+            'infosAdmin' => $infosAdmin,
         ]);
     }
 

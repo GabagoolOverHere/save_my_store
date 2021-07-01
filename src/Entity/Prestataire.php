@@ -51,7 +51,7 @@ class Prestataire
     private $longitude;
 
     /**
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="blob", nullable=true)
      */
     private $tarif;
 
@@ -164,12 +164,12 @@ class Prestataire
         return $this;
     }
 
-    public function getTarif(): ?float
+    public function getTarif()
     {
         return $this->tarif;
     }
 
-    public function setTarif(float $tarif): self
+    public function setTarif($tarif): self
     {
         $this->tarif = $tarif;
 

@@ -4,36 +4,58 @@ namespace App\Form;
 
 use App\Entity\Mission;
 use App\Entity\Prestataire;
-use App\Entity\Admin;
-use App\Repository\AdminRepository;
 use Doctrine\ORM\EntityRepository;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\ChoiceList\ChoiceList;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Security;
 class MissionFormType extends AbstractType
 {
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security=$security;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
+        //$admin=$this->security->getUser('patron_prestataire_id');
+
         $builder
-            ->add('descriptif', TextField::class)
+            ->add('descriptif', TextareaType::class)
             ->add('date_debut', DateType::class, ['label' =>'Date of beginning :'])
             ->add('date_fin', DateType::class, ['label' =>'Date of end :'])
             ->add('date_facture', DateType::class, ['label' => 'Facture date :'])
-            ->add('Facture', FileType::class, ['label' => 'Estimate :'])
-            ->add('prestataire', EntityType::class, ['class' => Prestataire::class,'query_builder' => function (EntityRepository $er) {
-                return $er->createQueryBuilder('p');
-            }, 'choice_label'=>'nom', 'mapped'=>false, 'placeholder' => 'Select which enterprise is in charge.'])
-            ->add('Create', SubmitType::class)
-        ;
+            ->add('facture', FileType::class, ['label' => 'Estimate :']);
+        // $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($id){
+        //     $form = $event->getForm();
+        //     $prestataire = [
+        //         'class' => Prestataire::class,
+        //         'query_builder' => function (EntityRepository $er) use ($id) {
+        //             return $er->createQueryBuilder('p')
+        //             ->where('p.patron_id =' . $id);
+        //         },
+        //         'choice_label'=>'nom', 'mapped'=>false, 'placeholder' => 'Select which enterprise is in charge.'
+        //     ];
+        //     $form
+        //         ->add('prestataire', EntityType::class, $prestataire);
+        //     });
+        $builder
+            ->add('prestataire', EntityType::class, ['class' => Prestataire::class, 'choice_label'=>'nom', 'mapped'=>false, 'placeholder' => 'Select which enterprise is in charge.'])
+            ->add('Create', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

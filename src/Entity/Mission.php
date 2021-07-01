@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\MissionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\BlobType;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -40,9 +41,9 @@ class Mission
     private $date_facture;
 
     /**
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="blob", nullable=true)
      */
-    private $montant;
+    private $facture;
 
     /**
      * @ORM\ManyToOne(targetEntity=Prestataire::class, inversedBy="mission")
@@ -113,14 +114,14 @@ class Mission
         return $this;
     }
 
-    public function getMontant(): ?float
+    public function getFacture()
     {
-        return $this->montant;
+        return $this->facture;
     }
 
-    public function setMontant(float $montant): self
+    public function setFacture($facture): self
     {
-        $this->montant = $montant;
+        $this->facture = $facture;
 
         return $this;
     }
@@ -165,10 +166,5 @@ class Mission
         }
 
         return $this;
-    }
-
-    public function __toString(): string
-    {
-        return $this->descriptif . ' ' . $this->montant . ' $';
     }
 }

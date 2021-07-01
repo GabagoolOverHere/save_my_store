@@ -24,6 +24,8 @@ class MissionController extends AbstractController
     #[Route('/newmission', name: 'New Mission')]
     public function register(Request $request, EntityManagerInterface $em, AdminRepository $adminRepository, PatronPrestataireRepository $patronPrestataireRepository): Response
     {
+        $user = $this->getUser();
+        $service_provider = $user->getPatronPrestataire('id');
         $mission = new Mission();
         $form = $this->createForm(MissionFormType::class, $mission);
         $form->handleRequest($request);
