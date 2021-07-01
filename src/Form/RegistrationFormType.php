@@ -57,7 +57,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('Restaurant', EntityType::class, ['class' => Restaurant::class, 'choice_label'=>'camis', 'mapped'=>false, 'placeholder' => 'Select your camis'])
+            ->add('Restaurant', EntityType::class, ['class' => Restaurant::class,'label' => 'Find', 'choice_label'=>'camis', 'mapped'=>false])
             ->add('submit', SubmitType::class, ['label' =>"Submit", "attr" => ['class' => 'btn-custom']])
         ;
     }
