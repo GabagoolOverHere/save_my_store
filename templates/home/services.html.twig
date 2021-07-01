@@ -1,30 +1,40 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Save Me Store -- Services {% endblock %}
+
 {% block customcss %}
 <link rel="stylesheet" href="{{ asset('scss/home.min.css') }}">
 {% endblock %}
 
 {% block body %}
-<div class="services-container">
-  <div class="services-left">
-    <h1>A Food Store</h1>
-    <div class="left-cont">
-      <p>There are so many obstacles for a foodstore to be a good one... Sometimes we don’t know whether it’s New York or Gotham City.</p>
-      <p>The inspection comes, just rates you, and leaves you with no clue how to improve. </p>
-      <div class="container-btn">
-        <button class="services-btn"> I need Help</button>
-      </div>
+
+  <div class="container container-services">
+    <div class="title-cust">
+      <h1> Our Services</h1>
+    </div>
+
+    <div class="row">
+      <h2>How it Works</h2>
+      <p>Our operation is quite simple, we connect restaurants in need with service providers. As an intermediary in the realization of the different missions, we verify that they are well executed and that the payment is done in time.</p>
+
+      <p>To do this, create an account as a service provider or restaurant owner to access our services. As a restaurant owner, you will receive proposals of missions with estimates, leaving you the time to choose and validate those you like. Service provider, you will be able to look at the restaurants in need around you on our interactive map and propose them missions.</p>
+    </div>
+
+    <div class="row">
+      <h2>Our Map</h2>
+      <p>Our interactive map allows you to choose the area and the problem you want to address. Once you have selected an establishment, propose an assignment directly to it. You will then be able to see in your personal space, the different missions you have in progress or to validate. Do not hesitate any longer.</p>
+    </div>
+
+    <div class="row">
+      <h2>Fees</h2>
+      <p>We act as intermediaries for all transactions, verify the smooth running of the accepted missions and their final settlement. The subscription to our services is 10$/month. Once you sign up, you will have access to all our services without restrictions or additional costs.</p>
+    </div>
+
+    <div class="cta">
+      <p>Do not hesitate and simplify your life. Get in touch with you, so that we can discuss together how you will save my store</p>
+      <a href="/contact" class="btn-custom"> Contact us</a>
     </div>
   </div>
-  <div class="services-right">
-    <h1>A Service Company</h1>
-    <div class="right-cont">
-      <p>It can be tough for you to find any clients. Isn’t your activity too specific? Will the client pay you well? How to even find them? </p>
-      <p>You just want to do your job: help people.</p>
-      <div class="container-btn">
-        <button class="services-btn"> I want to Help</button>
-      </div>
-    </div>
-  </div>
-</div>
+
+
 {% endblock %}

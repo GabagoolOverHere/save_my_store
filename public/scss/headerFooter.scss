@@ -5,7 +5,7 @@
 }
 
 .site-navbar {
-  background-color: #2173a6;
+  background-color: var(--primary-color-cust);
 }
 
 .ftaw-user {
@@ -13,16 +13,16 @@
 }
 
 .icon-menu {
-  color: white !important;
+  color: var(--white-color-cust) !important;
 }
 
 /* Gestion du footer */
 .cust-footer {
-  background-color: rgba(33, 115, 166, 0.8);
-  color: white;
+  background-color: var(--primary-color-cust);
+  color: var(--white-color-cust);
 
   p {
-    color: white;
+    color: var(--white-color-cust);
   }
 }
 
@@ -34,7 +34,7 @@
 .site-mobile-menu,
 .site-mobile-menu-header,
 .site-mobile-menu-body {
-  background-color: white;
+  background-color: var(--white-color-cust);
 }
 
 @media (max-width: 988px) {
