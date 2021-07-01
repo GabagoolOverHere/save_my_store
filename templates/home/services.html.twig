@@ -1,5 +1,30 @@
 {% extends 'base.html.twig' %}
 
+{% block customcss %}
+<link rel="stylesheet" href="{{ asset('scss/home.min.css') }}">
+{% endblock %}
+
 {% block body %}
-<p>Ours Services in construction</p>
+<div class="services-container">
+  <div class="services-left">
+    <h1>A Food Store</h1>
+    <div class="left-cont">
+      <p>There are so many obstacles for a foodstore to be a good one... Sometimes we don’t know whether it’s New York or Gotham City.</p>
+      <p>The inspection comes, just rates you, and leaves you with no clue how to improve. </p>
+      <div class="container-btn">
+        <button class="services-btn"> I need Help</button>
+      </div>
+    </div>
+  </div>
+  <div class="services-right">
+    <h1>A Service Company</h1>
+    <div class="right-cont">
+      <p>It can be tough for you to find any clients. Isn’t your activity too specific? Will the client pay you well? How to even find them? </p>
+      <p>You just want to do your job: help people.</p>
+      <div class="container-btn">
+        <button class="services-btn"> I want to Help</button>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
