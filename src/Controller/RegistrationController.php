@@ -8,6 +8,7 @@ use App\Entity\PatronRestaurant;
 use App\Form\RegistrationFormType;
 use App\Repository\AdminRepository;
 use App\Repository\RestaurantRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -60,5 +61,44 @@ class RegistrationController extends AbstractController
         return $this->render('registration/patronRestaurant.html.twig', [
             'patronRestaurantForm' => $form->createView(),
         ]);
+    }
+
+    #[Route('/EditRO', name: 'Edit_RO')]
+    public function EditRestaurantOwner(Request $request, EntityManager $em, UserPasswordHasherInterface $passwordEncoder, AdminRepository $adminRepository, PatronRestaurant $restaurant_owner)
+    {
+        $user = $this->getUser();
+        $restaurant_owner = $user->getPatronRestaurant();
+        $form = $this->createForm(EditRestaurantOwnerFormType::class, $restaurant_owner);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $username = $form->get('username')->getData();
+            $restaurant_id = $form->get('Restaurant')->getData('ID');
+            $count = $adminRepository->findBy(['username' => $username]);
+            if ($count) {
+                $this->addFlash('error', 'Username already used, please make another choice.');
+                return $this->redirectToRoute('home');
+            }
+            $user->setUsername($username);
+            $user->setRoles(["ROLE_USER"]);
+            $user->setEmail($form->get('email')->getData());
+            //encode the plain password
+            $user->setPassword(
+                $passwordEncoder->hashPassword(
+                    $user,
+                    $form->get('plainPassword')->getData()
+                )
+            );
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($restaurant_owner);
+            $em->flush();
+            $restaurant_owner->addRestaurant($restaurant_id);
+
+            return $this->redirectToRoute('profileResto');
+        }
+        return $this->render('registration/patronRestaurant.html.twig', [
+        'patronRestaurantForm' => $form->createView(),
+    ]);
     }
 }

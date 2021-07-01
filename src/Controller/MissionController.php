@@ -36,7 +36,7 @@ class MissionController extends AbstractController
             $em->persist($mission);
             $em->flush();
 
-            return $this->redirectToRoute('profile');
+            return $this->redirectToRoute('profileService');
         }
 
         return $this->render('registration/register.html.twig', [
