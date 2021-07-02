@@ -1,5 +1,33 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Save My Store -- Story {% endblock %}
+
+{% block customcss %}
+    <link rel="stylesheet" href="{{ asset('scss/home.min.css') }}">
+{% endblock %}
+
 {% block body %}
-<p>Je suis OurStory</p>
+
+    <div class="container container-services mb-5">
+        <div class="title-cust">
+            <h1> Our Story</h1>
+        </div>
+
+        <div class="row">
+            <h2>The beginning</h2>
+            <p>Launched in 2012, Save My Store started as a small tech company in the suburbs of New-York. It was initially a web agency creating websites for clients all over the country and beyond.</p>
+
+            <p>Growing stronger thanks to satisfied cutomers, Save My Store began to attract more and more clients all around the globe. The embassy of Khazakstan in New-York, Francis Lalanne, and Laurent Romeshko gave their trusts to Save My Store to make their websites!</p>
+        </div>
+
+        <div class="row">
+            <h2>The Change</h2>
+            <p>After a few years making websites, the CEO of Save My Store, Lil McCunningham, got a brilliant idea! Why couldn't we just help people and be payed BIG MONEY for it? Hell yeah! A lot of restaurants are stuggling in NYC, and when they get a bad inspection, that can be really ugly for their businesses. I mean, what's wrong with having a few rats in your kitchen, right? So we had the idea to bring restaurant owners, and service providers together, so each restaurant with a problem can find a solution instantly.</p>
+
+            <p>Helping people is cool and all, but we also want to earn money, so each time a problem is solved, we get a sweet commission. And if you want to access our map, you better get the moulah ready.</p>
+        </div>
+
+
+    </div>
+
 {% endblock %}
