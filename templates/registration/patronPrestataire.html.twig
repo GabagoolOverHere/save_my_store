@@ -37,14 +37,14 @@
               </div>
               <div class="form-row">
                 <div class="form-group col-md-3">
+                    {{ form_label(patronPrestataireForm.prenom)}}
+                    {{ form_widget(patronPrestataireForm.prenom, { 'attr': {'class': 'form-control'} })}}
+                </div>
+                <div class="form-group col-md-3">
                   {{ form_label(patronPrestataireForm.nom)}}
                     {{ form_widget(patronPrestataireForm.nom, { 'attr': {'class': 'form-control'} })}}
                 </div>
 
-                <div class="form-group col-md-3">
-                    {{ form_label(patronPrestataireForm.prenom)}}
-                    {{ form_widget(patronPrestataireForm.prenom, { 'attr': {'class': 'form-control'} })}}
-                </div>
                 <div class="form-group col-md-3">
                     {{ form_label(patronPrestataireForm.tel)}}
                     {{ form_widget(patronPrestataireForm.tel, { 'attr': {'class': 'form-control'} })}}

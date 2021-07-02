@@ -10,7 +10,8 @@
     font-size: 29px !important;
   }
 
-  h1 {
+  .home-left,
+  .home-right {
     color: var(--accent-color) !important;
   }
 }
@@ -100,4 +101,18 @@
   p {
     color: var(--dark-blue) !important;
   }
+}
+
+.register-title {
+  display: flex;
+  justify-content: center;
+  background: linear-gradient(
+    to right,
+    var(--grey-color-cust) 50%,
+    var(--primary-color-cust-80) 50%
+  ) !important;
+  color: white !important;
+  margin-bottom: 0;
+  padding-top: 20px;
+  font-size: 60px;
 }
