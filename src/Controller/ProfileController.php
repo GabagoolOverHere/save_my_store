@@ -81,10 +81,12 @@ class ProfileController extends AbstractController
     {
         $infosPatron = $patronService->getPatronInfos($id);
         $infosPrestataires = $patronService->getPrestatairesInfos(($id));
+        $allMissions = $patronService->getPatronMissions($id);
 
         return $this->render('profile/service.html.twig', [
             'infosPatron' => $infosPatron,
             'infosPrestataires' => $infosPrestataires,
+            'missions'=>$allMissions,
         ]);
     }
 

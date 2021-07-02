@@ -60,6 +60,19 @@ class PatronPrestataireRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getPatronMissions(int $id){
+        $query = $this->createQueryBuilder('pp');
+
+        return $query
+            ->select('m.id', 'm.descriptif')
+            ->Join('App\Entity\Prestataire', 'p', Join::WITH, 'p.patronPrestataire = pp.id')
+            ->innerJoin('App\Entity\Mission', 'm', Join::WITH, 'm.prestataire = p.id')
+            ->where('pp.id = :id')
+            ->setParameter(':id', $id)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return PatronPrestataire[] Returns an array of PatronPrestataire objects
     //  */

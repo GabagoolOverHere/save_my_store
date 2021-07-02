@@ -3,14 +3,26 @@
 {% block title %}Hello ProfileController!{% endblock %}
 
 {% block body %}
-    <div class="profile-patron">
-        {% for mission in missions %}
-            <p class="text-dark mb-1">{{ mission.descriptif }}</p>
-            <p class="text-dark mb-1">{{ mission.date_debut|format_datetime('medium', 'short') }}</p>
-            <p class="text-dark mb-1">{{ mission.date_fin|format_datetime('medium', 'short') }}</p>
-            <p class="text-dark mb-1">{{ mission.date_facture|format_datetime('medium', 'short') }}</p>
-            <label for="facture">{{ mission.facture }}</label>
-            <input type="file" name="facture" id="facture">
-        {% endfor %}
+    <div class="profile-patron container h-75 d-flex">
+        <div class="row mt-5">
+            {% for mission in missions %}
+                <div class="col">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">Mission</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ app.user.username }}</h6>
+                            <p class="card-text">{{ mission.descriptif }}</p>
+                            <p class="card-text">{{ mission.date_debut|format_datetime('medium', 'short') }}</p>
+                            <p class="card-text">{{ mission.date_fin|format_datetime('medium', 'short') }}</p>
+                            <p class="card-text">{{ mission.date_facture|format_datetime('medium', 'short') }}</p>
+                            <p>Facture:</p>
+                            <label for="facture">{{ mission.facture }}</label>
+                            <input type="file" name="facture" id="facture">
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
     </div>
 {% endblock %}

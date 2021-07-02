@@ -3,91 +3,69 @@
 {% block title %}Hello ProfileController!{% endblock %}
 
 {% block body %}
-    <div class="card-container">
-      <div class="container mt-5">
-        <div class="row mb-3">
-          <div class="missions col-8">
-            <div class="card">
-              <div class="card-body">
-                <div class="row">
-                  <p>Je suis la première missions</p>
-                </div>
-                <div class="row">
-                  <p>Je suis la seconde missions</p>
-                </div>
-                <div class="row">
-                  <p>Je suis la troisieme missions</p>
-                </div>
-                <div class="row">
-                  <p>Je suis la 4eme missions</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="info col-4">
-            {% for info in infosPatron %}
-                <div class="card">
-                  <div class="card-body">
-                    <div class="d-flex flex-column align-items-center text-center">
-                      <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
-                      <div class="mt-3">
-                        <h4>John Doe</h4>
-                        <p class="text-secondary mb-1">{{ info.nom }}</p>
-                        <p class="text-secondary mb-1">{{ info.prenom }}</p>
-                        <p class="text-muted font-size-sm">{{ info.code_postal }}, {{ info.immeuble }}, {{ info.rue }}</p>
-                        <p class="text-secondary mb-1">{{ info.tel }}</p>
-                        <p class="text-secondary mb-1">{{ info.email }}</p>
-                        <a href="/profile/edit_profile_so/{{ app.user.patronprestataire.id }}" class="nav-link far fa-user ftaw-user w-color">
-                        <button class="btn-custom ">Edit</button>
-                        </a>
-                        <a href="/profile/add_society/{{ app.user.patronprestataire.id }}" class="nav-link far fa-user ftaw-user w-color">
-                        <button class="btn-custom">Ajouter une entreprise</button>
-                        </a>
-                      </div>
+    <div class="card-container mh-75">
+        <div class="container mt-5">
+            <div class="row mb-3">
+                <div class="missions col-8">
+                    <h2>Récapitulatif des missions</h2>
+                    <div class="card">
+                        <div class="card-body">
+                            {% for mission in missions %}
+
+                                <p class="text-dark">Mission#{{ mission.id }}</p>
+                                <p>Description: {{ mission.descriptif }}</p>
+
+                            {% endfor %}
+                        </div>
                     </div>
-                  </div>
                 </div>
-            {% endfor %}
-          </div>
+                <div class="info col-4">
+                    {% for info in infosPatron %}
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-column align-items-center text-center">
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin"
+                                         class="rounded-circle" width="150">
+                                    <div class="mt-3">
+                                        <h4>John Doe</h4>
+                                        <p class="text-secondary mb-1">{{ info.nom }}</p>
+                                        <p class="text-secondary mb-1">{{ info.prenom }}</p>
+                                        <p class="text-muted font-size-sm">{{ info.code_postal }}, {{ info.immeuble }}
+                                            , {{ info.rue }}</p>
+                                        <p class="text-secondary mb-1">{{ info.tel }}</p>
+                                        <p class="text-secondary mb-1">{{ info.email }}</p>
+                                        <a href="/profile/edit_profile_so/{{ app.user.patronprestataire.id }}"
+                                           class="nav-link far fa-user ftaw-user w-color">
+                                            <button class="btn-custom ">Edit</button>
+                                        </a>
+                                        <a href="/profile/add_society/{{ app.user.patronprestataire.id }}"
+                                           class="nav-link far fa-user ftaw-user w-color">
+                                            <button class="btn-custom">Ajouter une entreprise</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="row">
+                {% for info in infosPrestataires %}
+                    <div class="col mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <p>Nom de la boîte: {{ info.nom_presta }}</p>
+                                <p>Immeuble de la boite: {{ info.immeuble_presta }}</p>
+                                <p>Rue de la boite{{ info.rue_presta }}</p>
+                                <p>Code postal de la boite: {{ info.code_postal_presta }}</p>
+                                <a href="/profile/service_owner/{{ info.id_presta }}/missions">Voir les Missions</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
-        <div class="row">
-          {% for info in infosPrestataires %}
-          <div class="col">
-            <div class="card">
-              <div class="card-body">
-                <p>Nom de la boîte: {{ info.nom_presta }}</p>
-                <p>Immeuble de la boite: {{ info.immeuble_presta }}</p>
-                <p>Rue de la boite{{ info.rue_presta }}</p>
-                <p>Code postal de la boite: {{ info.code_postal_presta }}</p>
-                <a href="/profile/service_owner/{{ info.id_presta }}/missions">Voir les Missions</a>
-              </div>
-            </div>
-          </div>
-          {% endfor %}
-          <div class="col">
-            <div class="card">
-              <div class="card-body">
-                <p>Nom de la boîte: </p>
-                <p>Immeuble de la boite: </p>
-                <p>Rue de la boite :</p>
-                <p>Code postal de la boite: </p>
-                <a href="/profile/service_owner/1/missions">Voir les Missions</a>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card">
-              <div class="card-body">
-                <p>Nom de la boîte: </p>
-                <p>Immeuble de la boite: </p>
-                <p>Rue de la boite :</p>
-                <p>Code postal de la boite: </p>
-                <a href="/profile/service_owner/1/missions">Voir les Missions</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    </div>
     </div>
 
 {% endblock %}
