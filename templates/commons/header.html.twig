@@ -35,7 +35,7 @@
                     <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                             <li><a href="/map" class="nav-link w-color">Map</a></li>
-                            <li><a href="/contact" class="nav-link w-color">Contact</a></li>
+                            <li><a href="/contact" class="nav-link w-color">Contact us</a></li>
                             {% if app.user.patronrestaurant.id is defined %}
                                 <li><a href="/profile/restaurant_owner/{{ app.user.patronrestaurant.id }}"
                                        class="nav-link far fa-user ftaw-user w-color"></a></li>
@@ -52,10 +52,10 @@
                                     {% endif %}
                                 {% endfor %}
                             {% endif %}
-                            <li><a href="/logout" class="nav-link w-color">Se déconnecter</a></li>
+                            <li><a href="/logout" class="nav-link w-color">Logout</a></li>
                         {% else %}
-                                <li><a href="/" class="nav-link w-color">S'identifier</a></li>
-                                <li><a href="/login" class="nav-link w-color">Se connecter</a></li>
+                                <li><a href="/" class="nav-link w-color">Register</a></li>
+                                <li><a href="/login" class="nav-link w-color">Sign in</a></li>
                         {% endif %}
                     </ul>
                 </nav>
