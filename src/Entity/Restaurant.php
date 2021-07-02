@@ -6,6 +6,7 @@ use App\Repository\RestaurantRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=RestaurantRepository::class)
@@ -21,36 +22,43 @@ class Restaurant
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $immeuble;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $rue;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank
      */
     private $code_postal;
 
     /**
      * @ORM\Column(type="bigint")
+     * @Assert\NotBlank
      */
     private $tel;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank
      */
     private $latitude;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank
      */
     private $longitude;
 
