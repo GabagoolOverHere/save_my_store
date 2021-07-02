@@ -24,7 +24,7 @@ class MissionRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('m');
 
         return $query
-            ->select('m.id', 'm.descriptif', 'm.date_debut', 'm.date_fin', 'm.date_facture', 'm.montant')
+            ->select('m.id', 'm.descriptif', 'm.date_debut', 'm.date_fin', 'm.date_facture', 'm.facture')
             ->join('App\Entity\Prestataire', 'p', Join::WITH, 'm.prestataire = p.id')
             ->where('p.id = :id')
             ->setParameter(':id', $id)
