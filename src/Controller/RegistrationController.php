@@ -68,29 +68,6 @@ class RegistrationController extends AbstractController
     }
 
     /**
-     * @Route("/profile/edit_profile_ro/{id}", name="editRO")
-     */
-    public function EditRestaurantOwner(Request $request, EntityManagerInterface $em, $id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $restaurant_owner = $em->getRepository(PatronRestaurant::class)->find($id);
-        $form = $this->createForm(RegistrationFormType::class, $restaurant_owner);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()){
-            $em = $this->getDoctrine()->getManager();
-            $em->flush();
-
-            return $this->redirectToRoute('profileResto');
-            
-        }
-
-        return $this->render('registration/patronRestaurant.html.twig', [
-        'patronRestaurantForm'=> $form->createView()
-        ]);
-    }
-    /**
      * @Route("/profile/edit_user/{id}", name="editUser")
      */
     public function EditUser(Request $request, EntityManagerInterface $em, $id)

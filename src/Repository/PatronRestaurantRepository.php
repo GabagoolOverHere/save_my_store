@@ -20,7 +20,8 @@ class PatronRestaurantRepository extends ServiceEntityRepository
         parent::__construct($registry, PatronRestaurant::class);
     }
 
-    public function getPatronInfos(int $id){
+    public function getPatronInfos(int $id)
+    {
         $query = $this->createQueryBuilder('pr');
 
         return $query
@@ -28,23 +29,21 @@ class PatronRestaurantRepository extends ServiceEntityRepository
             ->where('pr.id = :id')
             ->setParameter(':id', $id)
             ->getQuery()
-            ->getResult()
-
-            ;
+            ->getResult();
     }
 
-    public function getRestaurantsInfos(int $id){
+    public function getRestaurantsInfos(int $id)
+    {
         $query = $this->createQueryBuilder('pr');
 
         return $query
-            ->select('r.camis', '(r.id) AS id_resto', '(r.nom) AS nom_resto', '(r.immeuble) AS immeuble_resto', '(r.rue) AS rue_resto', '(r.code_postal) AS code_postal_resto')
+            ->select('r.camis', '(r.id) AS id_resto', '(r.nom) AS nom_resto', '(r.immeuble) AS immeuble_resto',
+                '(r.rue) AS rue_resto', '(r.code_postal) AS code_postal_resto')
             ->Join('App\Entity\Restaurant', 'r', Join::WITH, 'r.patronRestaurant = pr.id')
             ->where('pr.id = :id')
             ->setParameter(':id', $id)
             ->getQuery()
-            ->getResult()
-
-            ;
+            ->getResult();
     }
 
     public function getAdminInfos(int $id)
@@ -52,10 +51,12 @@ class PatronRestaurantRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('pr');
 
         return $query
-        ->select('a.id', 'a.username')
-        ->Join('App\Entity\Admin', 'a', Join::WITH, 'a.patron_restaurant = pr.id')
-        ->where('pr.id = :id')
-        ->setParameter(':id', $id);
+            ->select('a.id', 'a.username')
+            ->Join('App\Entity\Admin', 'a', Join::WITH, 'a.patron_restaurant = pr.id')
+            ->where('pr.id = :id')
+            ->setParameter(':id', $id)
+            ->getQuery()
+            ->getResult();
     }
 
     // /**
