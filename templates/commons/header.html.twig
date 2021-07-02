@@ -27,21 +27,35 @@
                 </div>
 
                 <div class="ml-auto toggle-button d-inline-block d-lg-none"><a href="#"
-                                class="site-menu-toggle py-5 js-menu-toggle text-black"><span
+                                                                               class="site-menu-toggle py-5 js-menu-toggle text-black"><span
                                 class="icon-menu h3 text-black"></span></a></div>
             </div>
             <div class="col-lg-4">
                 <nav class="site-navigation text-left mr-auto " role="navigation">
                     <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
-                        <li><a href="/map" class="nav-link w-color">Map</a></li>
-                        <li><a href="/contact" class="nav-link w-color">Contact</a></li>
-                        {% if app.user.patronrestaurant.id is defined %}
-                            <li><a href="/profile/restaurant_owner/{{ app.user.patronrestaurant.id }}"
-                                   class="nav-link far fa-user ftaw-user w-color"></a></li>
-                        {% endif %}
-                        {% if app.user.patronprestataire.id is defined %}
-                            <li><a href="/profile/service_owner/{{ app.user.patronprestataire.id }}"
-                                   class="nav-link far fa-user ftaw-user w-color"></a></li>
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <li><a href="/map" class="nav-link w-color">Map</a></li>
+                            <li><a href="/contact" class="nav-link w-color">Contact</a></li>
+                            {% if app.user.patronrestaurant.id is defined %}
+                                <li><a href="/profile/restaurant_owner/{{ app.user.patronrestaurant.id }}"
+                                       class="nav-link far fa-user ftaw-user w-color"></a></li>
+                            {% endif %}
+                            {% if app.user.patronprestataire.id is defined %}
+                                <li><a href="/profile/service_owner/{{ app.user.patronprestataire.id }}"
+                                       class="nav-link far fa-user ftaw-user w-color"></a></li>
+                            {% endif %}
+                            {% if app.user.roles is defined %}
+                                {% for role in app.user.roles %}
+                                    {% if role == 'ROLE_ADMIN' %}
+                                        <li><a href="/admin"
+                                               class="nav-link far fa-user ftaw-user w-color"></a></li>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                            <li><a href="/logout" class="nav-link w-color">Se déconnecter</a></li>
+                        {% else %}
+                                <li><a href="/" class="nav-link w-color">S'identifier</a></li>
+                                <li><a href="/login" class="nav-link w-color">Se connecter</a></li>
                         {% endif %}
                     </ul>
                 </nav>
