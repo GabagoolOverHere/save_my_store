@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Save My Store - Ajouter une autre entreprise{% endblock %}
+
+{% block customcss %}
+<link rel="stylesheet" href="{{ asset('scss/registration.min.css') }}">
+{% endblock %}
+
+{% block body %}
+    {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+
+      {{ form_start(addPrestataireForm) }}
+          <div class="card-body">
+            <div class="cust-cont-center">
+              <h2 class="cust-form-title">Add a new Service Society</h2>
+            </div>
+            <div class="cust-cont-center">
+              <div class="cammis-choice-cont">
+                {{ form_label(addPrestataireForm.username)}}
+                {{ form_widget(addPrestataireForm.username)}}
+              </div>
+            </div>
+          </div>
+            <div class="d-flex justify-content-end">
+            {{ form_widget(addPrestataireForm.submit)}}
+          </div>
+          {{ form_rest(addPrestataireForm) }}
+        </form>
+      </div>
+    </div>
+  </div>
+    {{ form_end(addPrestataireForm) }}
+{% endblock %}

@@ -4,8 +4,7 @@ namespace App\Form;
 
 use App\Entity\PatronRestaurant;
 use App\Entity\Restaurant;
-use App\Repository\AdminRepository;
-use App\Repository\PatronRestaurantRepository;
+use App\Entity\PatronPrestataire;
 use Symfony\Bridge\Doctrine\Form\ChoiceList;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Repository\RestaurantRepository;
@@ -18,8 +17,6 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormTypeInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
@@ -28,24 +25,23 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Security\Core\Security;
 
-/* Formulaire de modification pour les RESTAURANT OWNER */
+/* Formulaire de modification pour les données des patrons des deux entités */
 
-class LinkRestaurantToOwnerFormType extends AbstractType
+class EditPatronFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Restaurant', EntityType::class, ['class' => Restaurant::class, 'choice_label'=>'camis','required'=>false, 'mapped'=>false, 'placeholder' => 'Select your camis'])
+            ->add('nom', TextType::class, ['label' => 'Lastname', 'required' =>false,])
+            ->add('prenom', TextType::class, ['label' => 'Firstname', 'required' =>false,])
+            ->add('email', EmailType::class, ['required' =>false,])
+            ->add('tel', TelType::class, ['label' => 'Phone number', 'required' =>false,])
+            ->add('immeuble', TextType::class, ['label' => 'Building', 'required' =>false,])
+            ->add('rue', TextType::class, ['label' => 'Street', 'required' =>false,])
+            ->add('code_postal', TextType::class, ['label' => 'Zipcode','required' =>false,])
             ->add('submit', SubmitType::class, ['label' =>"Submit", "attr" => ['class' => 'btn-custom']])
         ;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'data_class' => PatronRestaurant::class,
-        ]);
-    }
 }

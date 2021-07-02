@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Save My Store - Service Provider profile - Edit {% endblock %}
+
+{% block customcss %}
+<link rel="stylesheet" href="{{ asset('scss/registration.min.css') }}">
+{% endblock %}
+
+{% block body %}
+    {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+
+      {# {{ form_start(infosAdmin) }} #}
+
+  <div class="container mb-4 mt-4">
+    <div class="card">
+      {# <div class="card-body">
+        <form>
+          <div class="card-body">
+            <div class="cust-cont-center">
+              <h2 class="cust-form-title">Edit your user informations</h2>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-3">
+                  {{ form_label(infosAdmin.username)}}
+                  {{ form_widget(infosAdmin.username, { 'attr': {'class': 'form-control'} })}}
+              </div>
+              <div class="form-group col-md-6">
+                {{ form_label(infosAdmin.plainPassword)}}
+                  {{ form_widget(infosAdmin.plainPassword, { 'attr': {'class': 'form-control'} })}}
+              </div>
+            </div>
+          </div>
+      {{ form_end(infosAdmin) }} #}
+      {{ form_start(editPatronPrestataireForm) }}
+          <div class="card-body">
+            <div class="cust-cont-center">
+              <h2 class="cust-form-title">Edit your details</h2>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-3">
+                {{ form_label(editPatronPrestataireForm.nom)}}
+                  {{ form_widget(editPatronPrestataireForm.nom, { 'attr': {'class': 'form-control'} })}}
+              </div>
+
+              <div class="form-group col-md-3">
+                  {{ form_label(editPatronPrestataireForm.prenom)}}
+                  {{ form_widget(editPatronPrestataireForm.prenom, { 'attr': {'class': 'form-control'} })}}
+              </div>
+              <div class="form-group col-md-3">
+                  {{ form_label(editPatronPrestataireForm.tel)}}
+                  {{ form_widget(editPatronPrestataireForm.tel, { 'attr': {'class': 'form-control'} })}}
+              </div>
+              <div class="form-group col-md-3">
+                  {{ form_label(editPatronPrestataireForm.email)}}
+                  {{ form_widget(editPatronPrestataireForm.email, { 'attr': {'class': 'form-control'} })}}
+              </div>
+
+              <div class="form-group col-md-3">
+                {{ form_label(editPatronPrestataireForm.rue)}}
+                {{ form_widget(editPatronPrestataireForm.rue, { 'attr': {'class': 'form-control'} })}}
+              </div>
+              <div class="form-group col-md-3">
+                {{ form_label(editPatronPrestataireForm.immeuble)}}
+                {{ form_widget(editPatronPrestataireForm.immeuble, { 'attr': {'class': 'form-control'} })}}
+              </div>
+              <div class="form-group col-md-3">
+                {{ form_label(editPatronPrestataireForm.code_postal)}}
+                {{ form_widget(editPatronPrestataireForm.code_postal, { 'attr': {'class': 'form-control'} })}}
+              </div>
+            </div>
+          </div>
+    {{ form_end(editPatronPrestataireForm) }}
+{% endblock %}

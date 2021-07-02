@@ -34,33 +34,6 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route("/profile/edit_profile_ro/{id}", name="editRO")
-     */
-    public function EditRestaurantOwner(PatronRestaurantRepository $patronResto, Request $request, EntityManagerInterface $em, $id)
-    {
-        $infosAdmin = $patronResto->getAdminInfos($id);
-
-        $em = $this->getDoctrine()->getManager();
-        $restaurant_owner = $em->getRepository(PatronRestaurant::class)->find($id);
-        $form = $this->createForm(RegistrationFormType::class, $restaurant_owner);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()){
-            $em = $this->getDoctrine()->getManager();
-            $em->flush();
-
-            return $this->redirectToRoute('profileResto');
-
-        }
-
-        return $this->render('registration/patronRestaurant.html.twig', [
-            'patronRestaurantForm'=> $form->createView(),
-            'infosAdmin' => $infosAdmin,
-        ]);
-    }
-
-    /**
      * @Route("/profile/restaurant_owner/{id}/missions", name="missionsResto")
      */
     public function missionsResto(
@@ -88,33 +61,7 @@ class ProfileController extends AbstractController
             'infosPrestataires' => $infosPrestataires,
             'missions'=>$allMissions,
         ]);
-    }
-
-    /**
-     * @Route("/profile/edit_profile_so/{id}", name="editSO")
-     */
-    public function EditServiceOwner(PatronPrestataireRepository $patronPresta, Request $request, EntityManagerInterface $em, $id)
-    {
-        $infosAdmin = $patronPresta->getAdminInfos($id);
-
-        $em = $this->getDoctrine()->getManager();
-        $prestataire_owner = $em->getRepository(PatronPrestataire::class)->find($id);
-        $form = $this->createForm(RegistrationFormType::class, $prestataire_owner);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()){
-            $em = $this->getDoctrine()->getManager();
-            $em->flush();
-
-            return $this->redirectToRoute('profilePresta');
-
-        }
-
-        return $this->render('registration/patronPrestataire.html.twig', [
-            'patronPrestataireForm'=> $form->createView(),
-            'infosAdmin' => $infosAdmin,
-        ]);
+    
     }
 
     /**

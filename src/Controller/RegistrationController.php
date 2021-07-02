@@ -5,12 +5,14 @@ namespace App\Controller;
 use App\Entity\Admin;
 use App\Entity\Restaurant;
 use App\Entity\PatronRestaurant;
+use App\Entity\PatronPrestataire;
 use App\Form\RegistrationFormType;
+use App\Form\EditPatronFormType;
+use App\Form\EditProfileFormType;
 use App\Form\LinkRestaurantToOwnerFormType;
-use App\Form\EditRestaurantOwnerFormType;
 use App\Repository\AdminRepository;
 use App\Repository\PatronRestaurantRepository;
-use App\Repository\RestaurantRepository;
+use App\Repository\PatronPrestataireRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -68,46 +70,109 @@ class RegistrationController extends AbstractController
     }
 
     /**
-     * @Route("/profile/edit_user/{id}", name="editUser")
+     * @Route("/profile/edit_profile_ro/{id}", name="editRO")
      */
-    public function EditUser(Request $request, EntityManagerInterface $em, $id)
+    public function EditRestaurantOwner(Request $request, EntityManagerInterface $em,int $id, PatronRestaurantRepository $restaurant_owner, AdminRepository $adminRepository)
     {
         $em = $this->getDoctrine()->getManager();
-        $user = $em->getRepository(Admin::class)->find($id);
-        $form = $this->createForm(RegistrationFormType::class, $user);
+        // $infosAdmin = $em->getRepository(Admin::class)->find($id);
+        // $formProfile = $this->createForm(EditProfileFormType::class, $infosAdmin);
 
-        $form->handleRequest($request);
+        $restaurant_owner = $em->getRepository(PatronPrestataire::class)->find($id);
+        $formPatron = $this->createForm(EditPatronFormType::class, $restaurant_owner);
+        $formRestaurant = $this->createForm(LinkRestaurantToOwnerFormType::class, $restaurant_owner);
+        
+        // $formProfile->handleRequest($request);
+        $formPatron->handleRequest($request);
+        $formRestaurant->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()){
-            $em = $this->getDoctrine()->getManager();
+        // if ($formProfile->isSubmitted() && $formProfile->isValid()) {
+        //     $username = $em->getRepository(PatronRestaurant::class)->find($id);
+        //     $count = $adminRepository->findBy(['username' => $username]);
+        //     if ($count) {
+        //         $this->addFlash('error', 'Username already used, please make another choice.');
+        //     }
+        //     $em->persist($infosAdmin);
+        //     $em->flush();
+
+        //     return $this->redirect('/profile/restaurant_owner/' . $id);
+        // }
+
+        if ($formPatron->isSubmitted() && $formPatron->isValid()) {
+            $em->persist($restaurant_owner);
             $em->flush();
 
-            return $this->redirectToRoute('profileResto');
+            return $this->redirect('/profile/restaurant_owner/' . $id);
+        }
+
+        if ($formRestaurant->isSubmitted() && $formRestaurant->isValid()) {
+            $restaurant_id = $formRestaurant->get('Restaurant')->getData();
+            $restaurant_owner->addRestaurant($restaurant_id);
+            $em->persist($restaurant_owner);
+            $em->flush();
+
+            return $this->redirect('/profile/restaurant_owner/' . $id);
+        }
+
+        return $this->render('registration/editPatronRestaurant.html.twig', [
+        // 'infosAdmin'=> $infosAdmin,
+        'editPatronRestaurantForm'=> $formPatron->createView(),
+        // 'infosAdmin'=> $formProfile->createView(),
+        'addRestaurantToOwnerForm' => $formRestaurant->createView(),
+        ]);
+    }
+    
+    /**
+     * @Route("/profile/edit_profile_so/{id}", name="editSO")
+     */
+        public function EditServiceOwner(Request $request, EntityManagerInterface $em,int $id, PatronPrestataireRepository $service_owner, AdminRepository $adminRepository)
+    {
+        $em = $this->getDoctrine()->getManager();
+        // $infosAdmin = $this->getUser('id');
+        // $formProfile = $this->createForm(EditProfileFormType::class, $infosAdmin);
+        
+        $service_owner = $em->getRepository(PatronPrestataire::class)->find($id);
+        $formPatron = $this->createForm(EditPatronFormType::class, $service_owner);
+        $formSociety = $this->createForm(AddServiceSociety::class, $service_owner);
+        
+        // $formProfile->handleRequest($request);
+        $formPatron->handleRequest($request);
+        $formSociety->handleRequest($request);
+
+        // if ($formProfile->isSubmitted() && $formProfile->isValid()){
+        //     $username = $em->getRepository(PatronPrestataire::class)->find($infosAdmin);
+        //     $count = $adminRepository->findBy(['username' => $username]);
+        //     if ($count) {
+        //         $this->addFlash('error', 'Username already used, please make another choice.');
+        //     }
+        //     $em->persist($infosAdmin);
+        //     $em->flush();
+
+        //     return $this->redirect('/profile/service_owner/' . $id);
+            
+        // }
+
+        if ($formPatron->isSubmitted() && $formPatron->isValid()){
+            $em->persist($service_owner);
+            $em->flush();
+
+            return $this->redirect('/profile/service_owner/' . $id);
+            
+        }
+        if ($formSociety->isSubmitted() && $formSociety->isValid()){
+            $em->persist($service_owner);
+            $em->flush();
+
+            return $this->redirect('/profile/service_owner/' . $id);
             
         }
 
-        return $this->render('registration/patronRestaurant.html.twig', [
-        'patronRestaurantForm'=> $form->createView()
+
+        return $this->render('registration/editPatronPrestataire.html.twig', [
+        // 'infosAdmin'=> $infosAdmin,
+        'editPatronPrestataireForm'=> $formPatron->createView(),
+        // 'infosAdmin'=> $formProfile->createView(),
+
         ]);
-    }
-
-    public function AddRestaurantToOwner(Request $request, EntityManager $em, PatronRestaurantRepository $restaurant_owner)
-    {
-        $restaurant_owner->getPatronInfos('id');
-        $form = $this->createForm(LinkRestaurantToOwnerFormType::class, $restaurant_owner);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $restaurant_id = $form->get('Restaurant')->getData('ID');
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($restaurant_owner);
-            $em->flush();
-            $restaurant_owner->addRestaurant($restaurant_id);
-
-            return $this->redirectToRoute('profileResto');
-        }
-        return $this->render('registration/patronRestaurant.html.twig', [
-        'patronRestaurantForm' => $form->createView(),
-    ]);
     }
 }

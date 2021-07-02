@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Save My Store - Restaurant owner profile - Edit {% endblock %}
+
+{% block customcss %}
+<link rel="stylesheet" href="{{ asset('scss/registration.min.css') }}">
+{% endblock %}
+
+{% block body %}
+    {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+
+      {# {{ form_start(infosAdmin) }} #}
+
+  <div class="container mb-4 mt-4">
+    <div class="card">
+      {# <div class="card-body">
+        <form>
+          <div class="card-body">
+            <div class="cust-cont-center">
+              <h2 class="cust-form-title">Edit your user informations</h2>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-3">
+                  {{ form_label(infosAdmin.username)}}
+                  {{ form_widget(infosAdmin.username, { 'attr': {'class': 'form-control'} })}}
+              </div>
+              <div class="form-group col-md-6">
+                {{ form_label(infosAdmin.plainPassword)}}
+                  {{ form_widget(infosAdmin.plainPassword, { 'attr': {'class': 'form-control'} })}}
+              </div>
+            </div>
+          </div>
+      {{ form_end(infosAdmin) }} #}
+      {{ form_start(editPatronRestaurantForm) }}
+          <div class="card-body">
+            <div class="cust-cont-center">
+              <h2 class="cust-form-title">Edit your details</h2>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-3">
+                {{ form_label(editPatronRestaurantForm.nom)}}
+                  {{ form_widget(editPatronRestaurantForm.nom, { 'attr': {'class': 'form-control'} })}}
+              </div>
+
+              <div class="form-group col-md-3">
+                  {{ form_label(editPatronRestaurantForm.prenom)}}
+                  {{ form_widget(editPatronRestaurantForm.prenom, { 'attr': {'class': 'form-control'} })}}
+              </div>
+              <div class="form-group col-md-3">
+                  {{ form_label(editPatronRestaurantForm.tel)}}
+                  {{ form_widget(editPatronRestaurantForm.tel, { 'attr': {'class': 'form-control'} })}}
+              </div>
+              <div class="form-group col-md-3">
+                  {{ form_label(editPatronRestaurantForm.email)}}
+                  {{ form_widget(editPatronRestaurantForm.email, { 'attr': {'class': 'form-control'} })}}
+              </div>
+
+              <div class="form-group col-md-3">
+                {{ form_label(editPatronRestaurantForm.rue)}}
+                {{ form_widget(editPatronRestaurantForm.rue, { 'attr': {'class': 'form-control'} })}}
+              </div>
+              <div class="form-group col-md-3">
+                {{ form_label(editPatronRestaurantForm.immeuble)}}
+                {{ form_widget(editPatronRestaurantForm.immeuble, { 'attr': {'class': 'form-control'} })}}
+              </div>
+              <div class="form-group col-md-3">
+                {{ form_label(editPatronRestaurantForm.code_postal)}}
+                {{ form_widget(editPatronRestaurantForm.code_postal, { 'attr': {'class': 'form-control'} })}}
+              </div>
+            </div>
+          </div>
+    {{ form_end(editPatronRestaurantForm) }}
+    {{ form_start(addRestaurantToOwnerForm) }}
+          <div class="card-body">
+            <div class="cust-cont-center">
+              <h2 class="cust-form-title">Add a new restaurant</h2>
+            </div>
+            <div class="cust-cont-center">
+              <div class="cammis-choice-cont">
+                {{ form_label(addRestaurantToOwnerForm.Restaurant)}}
+                {{ form_widget(addRestaurantToOwnerForm.Restaurant)}}
+              </div>
+            </div>
+          </div>
+            <div class="d-flex justify-content-end">
+            {{ form_widget(addRestaurantToOwnerForm.submit)}}
+          </div>
+          {{ form_rest(addRestaurantToOwnerForm) }}
+        </form>
+      </div>
+    </div>
+  </div>
+    {{ form_end(addRestaurantToOwnerForm) }}
+
+{% endblock %}
