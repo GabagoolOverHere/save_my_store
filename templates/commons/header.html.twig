@@ -4,67 +4,70 @@
             <span class="icon-close2 js-menu-toggle"></span>
         </div>
     </div>
-    <div class="site-mobile-menu-body"></div>
+    <div class="site-mobile-menu-body">
+    </div>
 </div>
 
 
-<header class="site-navbar site-navbar-target" role="banner">
+<header class="site-navbar" role="banner">
 
-    <div class="container banner-bg">
-        <div class="row align-items-center position-relative">
+  {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+  <div class="float-right user-logo">
+    <a class="far fa-user ftaw-user text-white" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+      {% if app.user.patronrestaurant.id is defined %}
+          <li><a href="/profile/restaurant_owner/{{ app.user.patronrestaurant.id }}" class="nav-link dropdown-item">Profil</a></li>
+      {% endif %}
+      {% if app.user.patronprestataire.id is defined %}
+          <li><a href="/profile/service_owner/{{ app.user.patronprestataire.id }}" class="nav-link dropdown-item">Profil</a></li>
+      {% endif %}
+      {% if app.user.roles is defined %}
+          {% for role in app.user.roles %}
+              {% if role == 'ROLE_ADMIN' %}
+              <li><a href="/admin" class="dropdown-item">Profil<a></li>
+              {% endif %}
+          {% endfor %}
+      {% endif %}
+      <li><a href="/logout" class="dropdown-item w-color">Logout</a></li>
+      {% endif %}
+    </ul>
+  </div>
 
-            <div class="col-lg-4">
-                <nav class="site-navigation text-right ml-auto " role="navigation">
+  <div class="container banner-bg">
+      <div class="row d-flex align-items-center justify-content-around">
+          <div class="site-navbar-target col-3 text-center">
+                <nav class="site-navigation" role="navigation">
                     <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
-                        <li><a href="/services" class="nav-link w-color">Ours Services</a></li>
+                        <li><a href="/services" class="nav-link w-color">Our Services</a></li>
                         <li><a href="/story" class="nav-link w-color">Our Story</a></li>
                     </ul>
                 </nav>
             </div>
-            <div class="col-lg-4 d-flex align-items-center justify-content-around">
+            <div class="col-3 text-center">
                 <div class="site-logo">
                     <a href="/"><img src="{{ asset('/images/LogoSMSdark2.png') }}" class="logo-img"></a>
                 </div>
-
                 <div class="ml-auto toggle-button d-inline-block d-lg-none">
                   <a href="#"class="site-menu-toggle py-5 js-menu-toggle text-black">
                     <span class="icon-menu h3 text-black"></span>
                   </a>
                 </div>
             </div>
-            <div class="col-lg-4">
-                <nav class="site-navigation text-left mr-auto " role="navigation">
+            <div class="col-3 text-center">
+                <nav class="site-navigation" role="navigation">
                     <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                          <li><a href="/map" class="nav-link w-color">Map</a></li>
-                          <li><a href="/contact" class="nav-link w-color">Contact us</a></li>
-
-                            <a class="nav-link far fa-user ftaw-user text-white w-color" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                              {% if app.user.patronrestaurant.id is defined %}
-                                  <li><a href="/profile/restaurant_owner/{{ app.user.patronrestaurant.id }}" class="nav-link dropdown-item">Profil</a></li>
-                              {% endif %}
-                              {% if app.user.patronprestataire.id is defined %}
-                                  <li><a href="/profile/service_owner/{{ app.user.patronprestataire.id }}" class="nav-link dropdown-item">Profil</a></li>
-                              {% endif %}
-                              {% if app.user.roles is defined %}
-                                  {% for role in app.user.roles %}
-                                      {% if role == 'ROLE_ADMIN' %}
-                                      <li><a href="/admin" class="dropdown-item">Profil<a></li>
-                                      {% endif %}
-                                  {% endfor %}
-                              {% endif %}
-                              <li><a href="/logout" class="nav-link dropdown-item w-color">Logout</a></li>
-                            </ul>
-
+                          <li><a href="/map" class=" w-color">Map</a></li>
+                          <li><a href="/contact" class="w-color">Contact us</a></li>
                         {% else %}
-                          <li><a href="/" class="nav-link w-color">Register</a></li>
-                          <li><a href="/login" class="nav-link w-color">Sign in</a></li>
+                          <li><a href="/" class="w-color">Register</a></li>
+                          <li><a href="/login" class="w-color">Sign in</a></li>
                         {% endif %}
                     </ul>
                 </nav>
             </div>
-        </div>
-    </div>
+          </div>
+      </div>
+  </div>
 </header>
