@@ -6,6 +6,8 @@ use App\Entity\Admin;
 use App\Entity\Restaurant;
 use App\Entity\PatronRestaurant;
 use App\Entity\PatronPrestataire;
+use App\Entity\Prestataire;
+use App\Form\AddSocietyFormType;
 use App\Form\RegistrationFormType;
 use App\Form\EditPatronFormType;
 use App\Form\EditProfileFormType;
@@ -133,7 +135,7 @@ class RegistrationController extends AbstractController
         
         $service_owner = $em->getRepository(PatronPrestataire::class)->find($id);
         $formPatron = $this->createForm(EditPatronFormType::class, $service_owner);
-        $formSociety = $this->createForm(AddServiceSociety::class, $service_owner);
+        $formSociety = $this->createForm(AddSocietyFormType::class, $service_owner);
         
         // $formProfile->handleRequest($request);
         $formPatron->handleRequest($request);
@@ -171,6 +173,45 @@ class RegistrationController extends AbstractController
         return $this->render('registration/editPatronPrestataire.html.twig', [
         // 'infosAdmin'=> $infosAdmin,
         'editPatronPrestataireForm'=> $formPatron->createView(),
+        // 'infosAdmin'=> $formProfile->createView(),
+
+        ]);
+    }
+    /**
+     * @Route("/profile/add_society/{id}", name="addSociety")
+     */
+        public function AddSocietyFormType(Request $request, EntityManagerInterface $em,int $id, PatronPrestataireRepository $service_owner,AdminRepository $adminRepository)
+    {
+        $service_owner =$em->getRepository(PatronPrestataire::class)->find($id);
+        $enterprise = new Prestataire();
+        $formSociety = $this->createForm(AddSocietyFormType::class, $service_owner);
+        $em = $this->getDoctrine()->getManager();
+
+        $formSociety->handleRequest($request);
+
+        if ($formSociety->isSubmitted() && $formSociety->isValid()){
+            $enterprise->setNom($formSociety->get('nom_societe')->getData());
+            $enterprise->setQuartier($formSociety->get('quartier_societe')->getData('id'));
+            $enterprise->setTarif($formSociety->get('tarif_societe')->getData());
+            $enterprise->setEmail($formSociety->get('email_societe')->getData());
+            $enterprise->setTel($formSociety->get('tel_societe')->getData());
+            $enterprise->setRue($formSociety->get('rue_societe')->getData());
+            $enterprise->setImmeuble($formSociety->get('immeuble_societe')->getData());
+            $enterprise->setCodePostal($formSociety->get('code_postal_societe')->getData());
+            
+            $em->persist($service_owner);
+            $enterprise->setPatronPrestataire($service_owner);
+            $em->flush();
+            $em->persist($enterprise);
+            $em->flush();
+            return $this->redirect('/profile/service_owner/' . $id);
+            
+        }
+
+
+        return $this->render('registration/addServiceSociety.html.twig', [
+        // 'infosAdmin'=> $infosAdmin,
+        'addPrestataireForm'=> $formSociety->createView(),
         // 'infosAdmin'=> $formProfile->createView(),
 
         ]);
