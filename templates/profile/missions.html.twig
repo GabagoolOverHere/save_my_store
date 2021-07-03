@@ -1,27 +1,37 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProfileController!{% endblock %}
+{% block title %}
+    {% if missions[0] is defined %}
+        {{ missions[0].nom }}'s missions
+    {% else %}
+        No mission
+    {% endif %}
+{% endblock %}
 
 {% block body %}
     <div class="profile-patron container h-75 d-flex">
         <div class="row mt-5">
-            {% for mission in missions %}
-                <div class="col">
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">Mission</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">{{ app.user.username }}</h6>
-                            <p class="card-text">{{ mission.descriptif }}</p>
-                            <p class="card-text">{{ mission.date_debut|format_datetime('medium', 'short') }}</p>
-                            <p class="card-text">{{ mission.date_fin|format_datetime('medium', 'short') }}</p>
-                            <p class="card-text">{{ mission.date_facture|format_datetime('medium', 'short') }}</p>
-                            <p>Facture:</p>
-                            <label for="facture">{{ mission.facture }}</label>
-                            <input type="file" name="facture" id="facture">
+            {% if missions[0] is defined %}
+                {% for mission in missions %}
+                    <div class="col">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">Mission</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ app.user.username }}</h6>
+                                <p class="card-text">{{ mission.descriptif }}</p>
+                                <p class="card-text">{{ mission.date_debut|format_datetime('medium', 'short') }}</p>
+                                <p class="card-text">{{ mission.date_fin|format_datetime('medium', 'short') }}</p>
+                                <p class="card-text">{{ mission.date_facture|format_datetime('medium', 'short') }}</p>
+                                <p>Facture:</p>
+                                <label for="facture">{{ mission.facture }}</label>
+                                <input type="file" name="facture" id="facture">
+                            </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            {% else %}
+                <h1>No current mission is set</h1>
+            {% endif %}
         </div>
 
     </div>

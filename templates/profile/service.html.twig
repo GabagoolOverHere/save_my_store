@@ -1,24 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProfileController!{% endblock %}
+{% block title %}{{ infosPatron[0].nom }}'s Profile{% endblock %}
 
 {% block body %}
     <div class="card-container mh-75">
         <div class="container mt-5">
             <div class="row mb-3">
-                <div class="missions col-8">
-                    <h2>Récapitulatif des missions</h2>
-                    <div class="card">
-                        <div class="card-body">
-                            {% for mission in missions %}
+                {% if missions[0] is defined %}
+                    <div class="missions col-8">
+                        <h2>Récapitulatif des missions</h2>
+                        <div class="card">
+                            <div class="card-body">
+                                {% for mission in missions %}
 
-                                <p class="text-dark">Mission#{{ mission.id }}</p>
-                                <p>Description: {{ mission.descriptif }}</p>
+                                    <p class="text-dark">Mission#{{ mission.id }}</p>
+                                    <p>Description: {{ mission.descriptif }}</p>
 
-                            {% endfor %}
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
-                </div>
+                {% else %}
+                    <div class="missions col-8">
+                        <h2>No mission is set</h2>
+                    </div>
+                {% endif %}
                 <div class="info col-4">
                     {% for info in infosPatron %}
                         <div class="card">

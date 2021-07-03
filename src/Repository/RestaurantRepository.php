@@ -65,7 +65,7 @@ class RestaurantRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('r');
 
         return $query
-            ->select('m.id', 'm.descriptif', 'm.date_debut', 'm.date_fin', 'm.date_facture', 'm.facture')
+            ->select('m.id', 'm.descriptif', 'm.date_debut', 'm.date_fin', 'm.date_facture', 'm.facture', 'r.nom')
             ->join('App\Entity\Probleme', 'p', Join::WITH, 'p.restaurant = r.id')
             ->innerJoin('App\Entity\Mission', 'm', Join::WITH, 'p.mission = m.id')
             ->where('r.id = :id')
