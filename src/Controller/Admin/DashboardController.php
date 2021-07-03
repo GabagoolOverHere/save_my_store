@@ -29,8 +29,8 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            /*->setFaviconPath(Favicon à implémenter);*/
-            ->setTitle('<img src="<!--Petit Logo à implémenter-->"> Save My Store - Interface d\'Administration');
+            ->setFaviconPath('/images/LogoSMSdark2.png')
+            ->setTitle('<img src="/images/LogoSMSdark2.png" style="width: 50px;"> Save My Store - Interface d\'Administration');
     }
 
     public function configureMenuItems(): iterable

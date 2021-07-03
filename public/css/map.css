@@ -12,7 +12,9 @@
   position: absolute;
   top: 20vh;
   right: 5px;
+  width: 100px;
 }
+
 
 #mapid {
   height: 100vh;
