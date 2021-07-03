@@ -42,7 +42,7 @@ class PatronRestaurant
 
     /**
      * @ORM\Column(type="integer")
-     * @Assert\Positive
+     * @Assert\LessThanOrEqual(9999999999)
      */
     private $tel;
 

@@ -46,7 +46,7 @@ class Restaurant
 
     /**
      * @ORM\Column(type="bigint")
-     * @Assert\NotBlank
+     * @Assert\LessThanOrEqual(9999999999)
      */
     private $tel;
 

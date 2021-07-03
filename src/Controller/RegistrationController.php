@@ -123,60 +123,7 @@ class RegistrationController extends AbstractController
         'addRestaurantToOwnerForm' => $formRestaurant->createView(),
         ]);
     }
-    
-    /**
-     * @Route("/profile/edit_profile_so/{id}", name="editSO")
-     */
-        public function EditServiceOwner(Request $request, EntityManagerInterface $em,int $id, PatronPrestataireRepository $service_owner, AdminRepository $adminRepository)
-    {
-        $em = $this->getDoctrine()->getManager();
-        // $infosAdmin = $this->getUser('id');
-        // $formProfile = $this->createForm(EditProfileFormType::class, $infosAdmin);
-        
-        $service_owner = $em->getRepository(PatronPrestataire::class)->find($id);
-        $formPatron = $this->createForm(EditPatronFormType::class, $service_owner);
-        $formSociety = $this->createForm(AddSocietyFormType::class, $service_owner);
-        
-        // $formProfile->handleRequest($request);
-        $formPatron->handleRequest($request);
-        $formSociety->handleRequest($request);
 
-        // if ($formProfile->isSubmitted() && $formProfile->isValid()){
-        //     $username = $em->getRepository(PatronPrestataire::class)->find($infosAdmin);
-        //     $count = $adminRepository->findBy(['username' => $username]);
-        //     if ($count) {
-        //         $this->addFlash('error', 'Username already used, please make another choice.');
-        //     }
-        //     $em->persist($infosAdmin);
-        //     $em->flush();
-
-        //     return $this->redirect('/profile/service_owner/' . $id);
-            
-        // }
-
-        if ($formPatron->isSubmitted() && $formPatron->isValid()){
-            $em->persist($service_owner);
-            $em->flush();
-
-            return $this->redirect('/profile/service_owner/' . $id);
-            
-        }
-        if ($formSociety->isSubmitted() && $formSociety->isValid()){
-            $em->persist($service_owner);
-            $em->flush();
-
-            return $this->redirect('/profile/service_owner/' . $id);
-            
-        }
-
-
-        return $this->render('registration/editPatronPrestataire.html.twig', [
-        // 'infosAdmin'=> $infosAdmin,
-        'editPatronPrestataireForm'=> $formPatron->createView(),
-        // 'infosAdmin'=> $formProfile->createView(),
-
-        ]);
-    }
     /**
      * @Route("/profile/add_society/{id}", name="addSociety")
      */
