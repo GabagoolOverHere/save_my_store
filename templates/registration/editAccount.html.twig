@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Save My Store - Service Provider profile - Edit {% endblock %}
+
+{% block customcss %}
+    <link rel="stylesheet" href="{{ asset('scss/registration.min.css') }}">
+{% endblock %}
+
+{% block body %}
+    {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+
+    <div class="container mb-4 mt-4">
+        <div class="card">
+            {{ form_start(editAccount) }}
+            <div class="card-body">
+                <div class="cust-cont-center">
+                    <h2 class="cust-form-title">Edit your account information</h2>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        {{ form_label(editAccount.username) }}
+                        {{ form_widget(editAccount.username, { 'attr': {'class': 'form-control'} }) }}
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        {{ form_label(editAccount.password) }}
+                        {{ form_widget(editAccount.password, { 'attr': {'class': 'form-control'} }) }}
+                    </div>
+                </div>
+            </div>
+            {{ form_end(editAccount) }}
+        </div>
+    </div>
+{% endblock %}

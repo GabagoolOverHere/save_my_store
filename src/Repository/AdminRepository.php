@@ -37,6 +37,18 @@ class AdminRepository extends ServiceEntityRepository implements PasswordUpgrade
         $this->_em->flush();
     }
 
+    public function findPatronPrestaAdmin($id){
+        $query = $this->createQueryBuilder('a');
+
+        return $query
+            ->select('a.username', 'a.password')
+            ->join('App\Entity\PatronPrestataire', 'pp', Join::WITH, 'a.patron_prestataire = pp.id')
+            ->where('pp.id = :id')
+            ->setParameter(':id', $id)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Admin[] Returns an array of Admin objects
     //  */

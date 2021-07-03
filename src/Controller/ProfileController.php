@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\PatronRestaurant;
+use App\Form\AccountType;
 use App\Form\AddSocietyFormType;
+use App\Form\EditAccountType;
 use App\Form\EditPatronFormType;
+use App\Form\EditProfileFormType;
 use App\Form\RegistrationFormType;
 use App\Repository\AdminRepository;
 use App\Repository\RestaurantRepository;
@@ -18,6 +21,7 @@ use App\Repository\PrestataireRepository;
 use App\Repository\MissionRepository;
 use App\Repository\PatronRestaurantRepository;
 use App\Entity\PatronPrestataire;
+use App\Entity\Admin;
 
 
 class ProfileController extends AbstractController
@@ -126,6 +130,33 @@ class ProfileController extends AbstractController
             // 'infosAdmin'=> $infosAdmin,
             'editPatronPrestataireForm'=> $formPatron->createView(),
             // 'infosAdmin'=> $formProfile->createView(),
+
+        ]);
+    }
+
+    /**
+     * @Route("/profile/edit_account_so/{id}", name="accountSO")
+     */
+    public function AccountServiceOwner(Request $request, EntityManagerInterface $em,int $id, PatronPrestataireRepository $service_owner, AdminRepository $adminRepository)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $service_owner = $em->getRepository(Admin::class)->findPatronPrestaAdmin($id);
+        $formAccount = $this->createForm(EditAccountType::class, $service_owner);
+
+        $formAccount->handleRequest($request);
+
+
+        if ($formAccount->isSubmitted() && $formAccount->isValid()){
+            $em->persist($service_owner);
+            $em->flush();
+
+            return $this->redirect('/profile/service_owner/' . $id);
+
+        }
+
+        return $this->render('registration/editAccount.html.twig', [
+            'editAccount'=> $formAccount->createView(),
 
         ]);
     }
