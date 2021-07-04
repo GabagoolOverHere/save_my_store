@@ -32,7 +32,7 @@ class ServiceProviderController extends AbstractController
             $count = $adminRepository->findBy(['username' => $username]);
             if ($count) {
                 $this->addFlash('error', 'Username already used, please make another choice.');
-                return $this->redirectToRoute('home');
+                return $this->redirectToRoute('app_register_SP');
             }
             $user->setUsername($username);
             $user->setRoles(["ROLE_USER"]);
@@ -75,7 +75,7 @@ class ServiceProviderController extends AbstractController
             $entityManager->flush();
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('registration/patronPrestataire.html.twig', [

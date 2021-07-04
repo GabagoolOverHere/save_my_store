@@ -63,7 +63,7 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('registration/patronRestaurant.html.twig', [
@@ -74,31 +74,14 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/profile/edit_profile_ro/{id}", name="editRO")
      */
-    public function EditRestaurantOwner(Request $request, EntityManagerInterface $em,int $id, PatronRestaurantRepository $restaurant_owner, AdminRepository $adminRepository)
+    public function EditRestaurantOwner(Request $request, EntityManagerInterface $em,int $id, PatronRestaurantRepository $restaurant_owner)
     {
         $em = $this->getDoctrine()->getManager();
-        // $infosAdmin = $em->getRepository(Admin::class)->find($id);
-        // $formProfile = $this->createForm(EditProfileFormType::class, $infosAdmin);
 
-        $restaurant_owner = $em->getRepository(PatronPrestataire::class)->find($id);
+        $restaurant_owner = $em->getRepository(PatronRestaurant::class)->find($id);
         $formPatron = $this->createForm(EditPatronFormType::class, $restaurant_owner);
-        $formRestaurant = $this->createForm(LinkRestaurantToOwnerFormType::class, $restaurant_owner);
         
-        // $formProfile->handleRequest($request);
         $formPatron->handleRequest($request);
-        $formRestaurant->handleRequest($request);
-
-        // if ($formProfile->isSubmitted() && $formProfile->isValid()) {
-        //     $username = $em->getRepository(PatronRestaurant::class)->find($id);
-        //     $count = $adminRepository->findBy(['username' => $username]);
-        //     if ($count) {
-        //         $this->addFlash('error', 'Username already used, please make another choice.');
-        //     }
-        //     $em->persist($infosAdmin);
-        //     $em->flush();
-
-        //     return $this->redirect('/profile/restaurant_owner/' . $id);
-        // }
 
         if ($formPatron->isSubmitted() && $formPatron->isValid()) {
             $em->persist($restaurant_owner);
@@ -107,8 +90,25 @@ class RegistrationController extends AbstractController
             return $this->redirect('/profile/restaurant_owner/' . $id);
         }
 
+        return $this->render('registration/editPatronRestaurant.html.twig', [
+        'editPatronRestaurantForm'=> $formPatron->createView(),
+        ]);
+    }
+     
+    
+    /**
+     * @Route("/profile/add_restaurant_ro/{id}", name="addRO")
+     */
+    public function AddRestaurantToOwner(Request $request, EntityManagerInterface $em,int $id, PatronRestaurantRepository $restaurant_owner)
+    {   
+        $em = $this->getDoctrine()->getManager();
+        $restaurant_owner = $em->getRepository(PatronRestaurant::class)->find($id);
+        $formRestaurant = $this->createForm(LinkRestaurantToOwnerFormType::class, $restaurant_owner);
+
+        $formRestaurant->handleRequest($request);
+
         if ($formRestaurant->isSubmitted() && $formRestaurant->isValid()) {
-            $restaurant_id = $formRestaurant->get('Restaurant')->getData();
+            $restaurant_id = $formRestaurant->get('Restaurant')->getData('ID');
             $restaurant_owner->addRestaurant($restaurant_id);
             $em->persist($restaurant_owner);
             $em->flush();
@@ -116,10 +116,7 @@ class RegistrationController extends AbstractController
             return $this->redirect('/profile/restaurant_owner/' . $id);
         }
 
-        return $this->render('registration/editPatronRestaurant.html.twig', [
-        // 'infosAdmin'=> $infosAdmin,
-        'editPatronRestaurantForm'=> $formPatron->createView(),
-        // 'infosAdmin'=> $formProfile->createView(),
+        return $this->render('registration/addRestaurantToOwner.html.twig', [
         'addRestaurantToOwnerForm' => $formRestaurant->createView(),
         ]);
     }
@@ -127,7 +124,7 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/profile/add_society/{id}", name="addSociety")
      */
-        public function AddSocietyFormType(Request $request, EntityManagerInterface $em,int $id, PatronPrestataireRepository $service_owner,AdminRepository $adminRepository)
+        public function AddSocietyFormType(Request $request, EntityManagerInterface $em,int $id, PatronPrestataireRepository $service_owner)
     {
         $service_owner =$em->getRepository(PatronPrestataire::class)->find($id);
         $enterprise = new Prestataire();
@@ -157,10 +154,7 @@ class RegistrationController extends AbstractController
 
 
         return $this->render('registration/addServiceSociety.html.twig', [
-        // 'infosAdmin'=> $infosAdmin,
         'addPrestataireForm'=> $formSociety->createView(),
-        // 'infosAdmin'=> $formProfile->createView(),
-
         ]);
     }
 }

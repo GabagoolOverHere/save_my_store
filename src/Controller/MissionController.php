@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+
 use App\Entity\Mission;
 use App\Form\MissionFormType;
 use App\Repository\AdminRepository;
@@ -13,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MissionController extends AbstractController
 {
-    #[Route('/mission', name: 'mission')]
+
     public function index(): Response
     {
         return $this->render('mission/index.html.twig', [
@@ -21,8 +22,8 @@ class MissionController extends AbstractController
         ]);
     }
 
-    #[Route('/newmission', name: 'New Mission')]
-    public function register(Request $request, EntityManagerInterface $em, AdminRepository $adminRepository, PatronPrestataireRepository $patronPrestataireRepository): Response
+
+    public function register(Request $request, EntityManagerInterface $em, AdminRepository $adminRepository, PatronPrestataireRepository $service_provider): Response
     {
         $user = $this->getUser();
         $service_provider = $user->getPatronPrestataire('id');

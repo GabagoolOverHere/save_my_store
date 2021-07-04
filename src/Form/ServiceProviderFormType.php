@@ -63,6 +63,7 @@ class ServiceProviderFormType extends AbstractType
             ->add('tarif_societe', FileType::class, [
                 'label' => 'Tarifs :',
                 'mapped' => false,
+                'required' => false,
                 'constraints' => [
                     new File([
                         'maxSize' => '1024k',
@@ -75,7 +76,7 @@ class ServiceProviderFormType extends AbstractType
                 ],
             ])
             ->add('quartier_societe', EntityType::class, ['label' => 'District', 'class' => Quartier::class, 'choice_label'=>'nom', 'mapped'=>false, 'placeholder' => ''])
-            ->add('share_info', CheckboxType::class, ['label'=>'My informations and the service society\'s are the same.','mapped'=>false])
+            ->add('share_info', CheckboxType::class, ['label'=>'My informations and the service society\'s are the same.','mapped'=>false, 'required' => false])
             ->add('email_societe', EmailType::class, ['label' => 'Email', 'mapped'=>false, 'required'=>false])
             ->add('tel_societe', TelType::class, ['label' => 'Tel', 'mapped'=>false, 'required'=>false])
             ->add('immeuble_societe', TextType::class, ['label' => 'Building','mapped'=>false, 'required'=>false])
@@ -84,12 +85,5 @@ class ServiceProviderFormType extends AbstractType
 
             ->add('submit', SubmitType::class, ['label' =>"Submit", "attr" => ['class' => 'btn-custom']])
         ;
-    }
-
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'data_class' => PatronPrestataire::class,
-        ]);
     }
 }

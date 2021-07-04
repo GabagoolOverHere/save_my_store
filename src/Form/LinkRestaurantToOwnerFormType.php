@@ -37,15 +37,8 @@ class LinkRestaurantToOwnerFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Restaurant', EntityType::class, ['class' => Restaurant::class, 'choice_label'=>'camis','required'=>false, 'mapped'=>false, 'placeholder' => 'Select your camis'])
+            ->add('Restaurant', EntityType::class, ['class' => Restaurant::class, 'choice_label'=>'camis', 'mapped'=>false, 'placeholder' => 'Select your camis'])
             ->add('submit', SubmitType::class, ['label' =>"Submit", "attr" => ['class' => 'btn-custom']])
         ;
-    }
-
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'data_class' => PatronRestaurant::class,
-        ]);
     }
 }

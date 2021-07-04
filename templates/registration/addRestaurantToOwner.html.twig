@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Save My Store - Add a new restaurant{% endblock %}
+
+{% block customcss %}
+<link rel="stylesheet" href="{{ asset('scss/registration.min.css') }}">
+{% endblock %}
+
+{% block body %}
+    {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+    {{ form_start(addRestaurantToOwnerForm) }}
+          <div class="card-body">
+            <div class="cust-cont-center">
+              <h2 class="cust-form-title">Add a new restaurant from our list</h2>
+            </div>
+            <div class="cust-cont-center">
+              <div class="cammis-choice-cont">
+                {{ form_label(addRestaurantToOwnerForm.Restaurant)}}
+                {{ form_widget(addRestaurantToOwnerForm.Restaurant)}}
+              </div>
+            </div>
+          </div>
+            <div class="d-flex justify-content-end">
+            {{ form_widget(addRestaurantToOwnerForm.submit)}}
+          </div>
+          {{ form_rest(addRestaurantToOwnerForm) }}
+        </form>
+      </div>
+    </div>
+  </div>
+    {{ form_end(addRestaurantToOwnerForm) }}
+{% endblock %}

@@ -78,7 +78,10 @@
                   {{ form_label(patronPrestataireForm.nom_societe)}}
                     {{ form_widget(patronPrestataireForm.nom_societe, { 'attr': {'class': 'form-control'} })}}
                 </div>
-
+                <div class="form-group col-md-3">
+                  {{ form_label(patronPrestataireForm.quartier_societe)}}
+                  {{ form_widget(patronPrestataireForm.quartier_societe, { 'attr': {'class': 'form-control'} })}}
+                </div>
                 <div class="form-group col-md-3">
                     {{ form_label(patronPrestataireForm.tel_societe)}}
                     {{ form_widget(patronPrestataireForm.tel_societe, { 'attr': {'class': 'form-control'} })}}
@@ -99,10 +102,6 @@
                 <div class="form-group col-md-3">
                   {{ form_label(patronPrestataireForm.code_postal_societe)}}
                   {{ form_widget(patronPrestataireForm.code_postal_societe, { 'attr': {'class': 'form-control'} })}}
-                </div>
-                <div class="form-group col-md-3">
-                  {{ form_label(patronPrestataireForm.quartier_societe)}}
-                  {{ form_widget(patronPrestataireForm.quartier_societe, { 'attr': {'class': 'form-control'} })}}
                 </div>
                 <div class="form-group col-md-3">
                   {{ form_label(patronPrestataireForm.share_info)}}
