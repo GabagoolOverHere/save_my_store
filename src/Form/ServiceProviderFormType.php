@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -59,7 +60,20 @@ class ServiceProviderFormType extends AbstractType
                 ],
             ])
             ->add('nom_societe', TextType::class, ['label' => 'Company Name', 'mapped'=>false])
-            ->add('tarif_societe', FileType::class, ['multiple'=>false, 'mapped'=>false, 'required'=>false])
+            ->add('tarif_societe', FileType::class, [
+                'label' => 'Tarifs :',
+                'mapped' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'application/pdf',
+                            'application/x-pdf',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid PDF document',
+                    ])
+                ],
+            ])
             ->add('quartier_societe', EntityType::class, ['label' => 'District', 'class' => Quartier::class, 'choice_label'=>'nom', 'mapped'=>false, 'placeholder' => ''])
             ->add('share_info', CheckboxType::class, ['label'=>'My informations and the service society\'s are the same.','mapped'=>false])
             ->add('email_societe', EmailType::class, ['label' => 'Email', 'mapped'=>false, 'required'=>false])

@@ -20,13 +20,16 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Validator\Constraints\File;
+
+
 class MissionFormType extends AbstractType
 {
     private $security;
 
     public function __construct(Security $security)
     {
-        $this->security=$security;
+        $this->security = $security;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -36,10 +39,24 @@ class MissionFormType extends AbstractType
 
         $builder
             ->add('descriptif', TextareaType::class)
-            ->add('date_debut', DateType::class, ['label' =>'Date of beginning :'])
-            ->add('date_fin', DateType::class, ['label' =>'Date of end :'])
+            ->add('date_debut', DateType::class, ['label' => 'Date of beginning :'])
+            ->add('date_fin', DateType::class, ['label' => 'Date of end :'])
             ->add('date_facture', DateType::class, ['label' => 'Facture date :'])
-            ->add('facture', FileType::class, ['label' => 'Estimate :']);
+            ->add('facture', FileType::class, [
+                'label' => 'Facture :',
+                'mapped' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'application/pdf',
+                            'application/x-pdf',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid PDF document',
+                    ])
+                ],
+            ])
+        ;
         // $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($id){
         //     $form = $event->getForm();
         //     $prestataire = [
@@ -54,7 +71,12 @@ class MissionFormType extends AbstractType
         //         ->add('prestataire', EntityType::class, $prestataire);
         //     });
         $builder
-            ->add('prestataire', EntityType::class, ['class' => Prestataire::class, 'choice_label'=>'nom', 'mapped'=>false, 'placeholder' => 'Select which enterprise is in charge.'])
+            ->add('prestataire', EntityType::class, [
+                'class' => Prestataire::class,
+                'choice_label' => 'nom',
+                'mapped' => false,
+                'placeholder' => 'Select which enterprise is in charge.'
+            ])
             ->add('Create', SubmitType::class);
     }
 

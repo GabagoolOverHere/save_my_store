@@ -39,7 +39,6 @@ class ProblemeCrudController extends AbstractCrudController
         yield AssociationField::new('typeProbleme');
         yield AssociationField::new('mission');
         yield AssociationField::new('restaurant');
-        yield TextareaField::new('description');
         yield TextField::new('intitule');
     }
 }

@@ -46,12 +46,7 @@ class Mission
     private $date_facture;
 
     /**
-     * @ORM\Column(type="blob", nullable=true)
-     * @Assert\File(
-     *     maxSize = "1024k",
-     *     mimeTypes = {"application/pdf", "application/x-pdf"},
-     *     mimeTypesMessage = "Please upload a valid PDF"
-     * )
+     * @ORM\Column(type="string", nullable=true)
      */
     private $facture;
 
@@ -176,5 +171,10 @@ class Mission
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return 'Mission ' . $this->id;
     }
 }

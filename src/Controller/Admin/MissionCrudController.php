@@ -7,6 +7,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
@@ -40,10 +41,20 @@ class MissionCrudController extends AbstractCrudController
         yield AssociationField::new('prestataire');
         yield TextareaField::new('descriptif')
             ->hideOnIndex();
-        yield DateTimeField::new('date_debut');
-        yield DateTimeField::new('date_fin');
-        yield DateTimeField::new('date_facture');
-        yield MoneyField::new('montant')->setCurrency('USD');
+        yield DateTimeField::new('date_debut')->setFormTypeOptions([
+            'html5' => true,
+            'widget' => 'single_text',
+        ]);
+        yield DateTimeField::new('date_fin')->setFormTypeOptions([
+            'html5' => true,
+            'widget' => 'single_text',
+        ]);
+        yield DateTimeField::new('date_facture')->setFormTypeOptions([
+            'html5' => true,
+            'widget' => 'single_text',
+        ]);
+        yield TextField::new('facture')
+            ->hideOnIndex();
     }
 
 }

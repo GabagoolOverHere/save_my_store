@@ -58,12 +58,7 @@ class Prestataire
     private $longitude;
 
     /**
-     * @ORM\Column(type="blob", nullable=true)
-     * @Assert\File(
-     *     maxSize = "1024k",
-     *     mimeTypes = {"application/pdf", "application/x-pdf"},
-     *     mimeTypesMessage = "Please upload a valid PDF"
-     * )
+     * @ORM\Column(type="string", nullable=true)
      */
     private $tarif;
 
