@@ -29,7 +29,6 @@ class MissionController extends AbstractController
     public function register(Request $request, EntityManagerInterface $em, $id, AdminRepository $adminRepository, PatronPrestataireRepository $service_provider): Response
     {
         $em = $this->getDoctrine()->getManager();
-        $user = $this->getUser();
         $service_provider = $em->getRepository(PatronPrestataire::class)->find($id);
         $mission = new Mission();
         $form = $this->createForm(MissionFormType::class, $mission);
