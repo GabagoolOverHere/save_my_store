@@ -25,11 +25,11 @@
       {% if app.user.roles is defined %}
           {% for role in app.user.roles %}
               {% if role == 'ROLE_ADMIN' %}
-              <li><a href="/admin" class="dropdown-item">Profil<a></li>
+              <li><a href="{{ path('admin') }}" class="dropdown-item">Profil<a></li>
               {% endif %}
           {% endfor %}
       {% endif %}
-      <li><a href="/logout" class="dropdown-item w-color">Logout</a></li>
+      <li><a href="{{ path('app_logout') }}" class="dropdown-item w-color">Logout</a></li>
       {% endif %}
     </ul>
   </div>
@@ -39,8 +39,8 @@
           <div class="site-navbar-target col-3 text-center">
                 <nav class="site-navigation" role="navigation">
                     <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
-                        <li><a href="/services" class="nav-link w-color">Our Services</a></li>
-                        <li><a href="/story" class="nav-link w-color">Our Story</a></li>
+                        <li><a href="{{ path('services') }}" class="nav-link w-color">Our Services</a></li>
+                        <li><a href="{{ path('story') }}" class="nav-link w-color">Our Story</a></li>
                     </ul>
                 </nav>
             </div>
@@ -58,11 +58,11 @@
                 <nav class="site-navigation" role="navigation">
                     <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                          <li><a href="/map" class=" w-color">Map</a></li>
-                          <li><a href="/contact" class="w-color">Contact us</a></li>
+                          <li><a href="{{ path('map') }}" class=" w-color">Map</a></li>
+                          <li><a href="{{ path('contact') }}" class="w-color">Contact us</a></li>
                         {% else %}
-                          <li><a href="/register" class="w-color">Register</a></li>
-                          <li><a href="/login" class="w-color">Sign in</a></li>
+                          <li><a href="{{ path('register') }}" class="w-color">Register</a></li>
+                          <li><a href="{{ path('app_login') }}" class="w-color">Sign in</a></li>
                         {% endif %}
                     </ul>
                 </nav>
