@@ -3,77 +3,97 @@
 {% block title %}{{ infosPatron[0].nom }}'s Profile{% endblock %}
 
 {% block body %}
-    <div class="card-container mh-75">
-        <div class="container mt-5">
-            <div class="row mb-3">
-                {% if missions[0] is defined %}
-                    <div class="missions col-8">
-                        <h2>Récapitulatif des missions</h2>
-                        <div class="card">
-                            <div class="card-body">
-                                {% for mission in missions %}
 
-                                    <p class="text-dark">Mission#{{ mission.id }}</p>
-                                    <p>Description: {{ mission.descriptif }}</p>
+<div class="container">
+  <div class="jumbotron">
 
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-                {% else %}
-                    <div class="missions col-8">
-                        <h2>No mission is set</h2>
-                    </div>
-                {% endif %}
-                <div class="info col-4">
-                    {% for info in infosPatron %}
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex flex-column align-items-center text-center">
-                                    <div class="mt-3">
-                                        <p class="text-secondary mb-1">{{ info.nom }}</p>
-                                        <p class="text-secondary mb-1">{{ info.prenom }}</p>
-                                        <p class="text-secondary mb-1">({{ app.user.username }})</p>
-                                        <p class="text-muted font-size-sm">{{ info.code_postal }}, {{ info.immeuble }}
-                                            , {{ info.rue }}</p>
-                                        <p class="text-secondary mb-1">{{ info.tel }}</p>
-                                        <p class="text-secondary mb-1">{{ info.email }}</p>
-                                        <a href="/profile/edit_profile_so/{{ app.user.patronprestataire.id }}"
-                                           class="nav-link far fa-user ftaw-user w-color">
-                                            <button class="btn-custom ">Edit Personnal Infos</button>
-                                        </a>
-                                        <a href="/profile/edit_account_so/{{ app.user.patronprestataire.id }}"
-                                           class="nav-link">
-                                            <button class="btn-custom ">Edit Account Infos</button>
-                                        </a>
-                                        <a href="/profile/add_society/{{ app.user.patronprestataire.id }}"
-                                           class="nav-link far fa-user ftaw-user w-color">
-                                            <button class="btn-custom">Ajouter une entreprise</button>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="row">
-                {% for info in infosPrestataires %}
-                    <div class="col mb-3">
-                        <div class="card">
-                            <div class="card-body">
-                                <p>Nom de la boîte: {{ info.nom_presta }}</p>
-                                <p>Immeuble de la boite: {{ info.immeuble_presta }}</p>
-                                <p>Rue de la boite{{ info.rue_presta }}</p>
-                                <p>Code postal de la boite: {{ info.code_postal_presta }}</p>
-                                <a href="/profile/service_owner/{{ info.id_presta }}/missions">Voir les Missions</a>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
+    <div class="row">
+    {% for info in infosPatron %}
+      <div class="col-md-3 col-xs-12 col-sm-6 col-lg-3">
+        <div class="thumbnail text-center photo_view_postion_b" >
+          <img src="http://dkextras.com/DK/images/profile/dfe29f0b7f57ca5cb982ac9b323ac975.jpg" alt="stack photo" class="img">
         </div>
+      </div>
+      <div class="col-md-9 col-xs-12 col-sm-6 col-lg-9">
+        <div class="" style="border-bottom:1px solid black">
+          <h2>{{ info.nom }} {{ info.prenom }}</h2>
+        </div>
+        <hr>
+        <div class="col-md-8">
+          <ul class="details">
+            <li class="details-li"><span class="fas fa-mobile-alt" style="width:50px;"></span>{{ info.tel }}</li>
+            <li class="details-li"><span class="far fa-envelope" style="width:50px;"></span>{{ info.email }}</li>
+            <li class="details-li"><span class="fas fa-map-marker-alt" style="width:50px;"></span>{{ info.code_postal }}, {{ info.immeuble }}, {{ info.rue }}</li>
+          </ul>
+        </div>
+        <div class="d-flex">
+          <a href="/profile/edit_profile_ro/{{ app.user.patronprestataire.id }}" class="nav-link w-color">
+            <button class="btn-custom ">Edit</button>
+          </a>
+          <a href="/profile/edit_account_so/{{ app.user.patronprestataire.id }}" class="nav-link">
+            <button class="btn-custom">Edit Account Infos</button>
+          </a>
+          <a href="/profile/add_restaurant_ro/{{ app.user.patronprestataire.id }}" class="nav-link w-color">
+            <button class="btn-custom">Ajouter une entreprise</button>
+          </a>
+        </div>
+      </div>
     </div>
+    {% endfor %}
+    <div class="row">
+      <div class="form-group row">
+        <div class="col-md-12">
+          <div class="form-group" style="border-bottom:1px solid black">
+            <h2>Service company own</h2>
+          </div>
+        </div>
+      </div>
     </div>
+    <div class="row">
+      <div class="col-md-4">
+      {% for info in infosPrestataires %}
+        <div class="card">
+          <div class="card-body">
+            <p class="text-secondary mb-1">{{ info.nom_presta }}</p>
+            <p class="text-secondary mb-1">{{ info.immeuble_presta }}</p>
+            <p class="text-secondary mb-1">{{ info.rue_presta }}</p>
+            <p class="text-secondary mb-1">{{ info.code_postal_presta }}</p>
+            <a href="/profile/restaurant_owner/{{ info.id_presta }}/missions" class="btn-custom">See the current missions</a>
+          </div>
+        </div>
+      {% endfor %}
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group row">
+        <div class="col-md-12">
+          <div class="form-group" style="border-bottom:1px solid black">
+            <h2>Missions Summary</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+    {% if missions[0] is defined %}
+      <div class="missions col-8">
+        <div class="card">
+          <div class="card-body">
+          {% for mission in missions %}
+            <p class="text-dark">Mission#{{ mission.id }}</p>
+            <p>{{ mission.descriptif }}</p>
+          {% endfor %}
+          </div>
+        </div>
+      </div>
+    {% else %}
+      <div class="missions col-8">
+        <h2>No mission is set</h2>
+      </div>
+    {% endif %}
+    <div class="clearfix"></div>
+    <div class="bot-border"></div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}
