@@ -8,8 +8,37 @@
 
 {% block body %}
 
-<h1>Not always easy to make a choice?</h1>
+<div class="container home-cust-container">
 
+  <div class="row home-title-cust">
+    <h1>Sometimes life can be complicated?</h1>
+  </div>
+
+  <div class="row">
+  <div class="card-cust">
+      <div class="col-4">
+      <img src="{{ asset('/images/pexels-cottonbro-4888554.jpg') }}" class="img-home-cust">
+    </div>
+    <p class="col-6">
+      You find yourself in an inextricable situation and don't know how to get out of it. The end of the tunnel seems inaccessible .... Look no further, Save My Store is here to help you!
+    </p>
+  </div>
+  </div>
+
+    <div class="row">
+      <div class="card-cust">
+      <p class="col-6">It's not always easy to find the right person to help you. You offer a quality service but can't find the right people to talk to, look no further, Save My Store is here!</p>
+      <div class="col-4">
+        <img src="{{ asset('/images/binoculars-1209011_1280.jpg') }}" class="img-home-cust-second">
+      </div>
+    </div>
+  </div>
+
+  <div class="cac-title-home">
+    <h2>Join our community by <a href="/register">registering</a> in a few clicks. Find the right person to work with!</h2>
+  </div>
+
+</div>
 
 
 {% endblock %}

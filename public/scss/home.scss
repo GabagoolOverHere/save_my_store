@@ -1,4 +1,49 @@
-//Gestion de la page Home
+// Gestion de la page home
+
+.home-cust-container {
+  p {
+    color: var(--dark-blue);
+  }
+
+  .home-title-cust {
+    color: var(--accent-color);
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+  }
+  h1 {
+    font-size: 45px;
+  }
+
+  .img-home-cust {
+    height: 500px;
+    width: 300px;
+  }
+
+  .img-home-cust-second {
+    width: 400px;
+  }
+
+  .card-cust {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+
+    p {
+      font-size: 20px;
+    }
+  }
+
+  .cac-title-home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    margin: 20px 0;
+  }
+}
+
+//Gestion de la page register
 
 .home-container {
   display: flex;
