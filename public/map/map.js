@@ -186,7 +186,7 @@ function createMarkers(divs, name, variableArray) {
         let vent1 = divs[i].dataset.violation == '10D';
         let r1 = divs[i].dataset.violation == '20D';
 
-        window[name + i] = L.marker([divs[i].dataset.latitude, divs[i].dataset.longitude]).bindPopup("<p class='text-center h4 font-weight-bold text-dark'>" + divs[i].dataset.nom + "</p>" + divs[i].dataset.immeuble + " - " + divs[i].dataset.rue + "<br>Phone: " + divs[i].dataset.tel + "<br><p style='color:#dc3545;'>"+ divs[i].dataset.violation + ": " + divs[i].dataset.intitule +"</p><div class='d-flex justify-content-center align-items-center'><button class='btn btn-primary'>Contact</button></div>");
+        window[name + i] = L.marker([divs[i].dataset.latitude, divs[i].dataset.longitude]).bindPopup(`<p class='text-center h4 font-weight-bold text-dark'>` + divs[i].dataset.nom + `</p>` + divs[i].dataset.immeuble + ` - ` + divs[i].dataset.rue + `<br>Phone: ` + divs[i].dataset.tel + `<br><p style='color:#dc3545;'>` + divs[i].dataset.violation + `: ` + divs[i].dataset.intitule +`</p><div class='d-flex justify-content-center align-items-center'><a href="newmission/`+ divs[i].dataset.camis +\`" class='btn btn-primary'>Contact</a></div>`);
 
         variableArray.push(window[name + i]);
 
