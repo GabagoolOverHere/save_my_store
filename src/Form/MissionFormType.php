@@ -4,12 +4,14 @@ namespace App\Form;
 
 use App\Entity\Mission;
 use App\Entity\Prestataire;
+use App\Entity\Restaurant;
 use App\Repository\MissionRepository;
 use Doctrine\DBAL\Types\BigIntType;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -18,6 +20,7 @@ use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -58,22 +61,11 @@ class MissionFormType extends AbstractType
                     ])
                 ],
             ])
-            ->add('prestataire', EntityType::class, ['class' => Prestataire::class,'choice_label'=>'nom',
-            'query_builder' => function (EntityRepository $er) {
-                return $er->createQueryBuilder('p')
-                    ->select('p.nom')
-                    ->where('p.patron_id=$id');
-            },'mapped'=>false, 'placeholder' => 'Select which enterprise is in charge.'])
-            ->add('restaurant', BigIntType::class, ['label' => 'The restaurant :', 'mapped'=>false, 'data'=>'$camis'])
-            ->add('Create', SubmitType::class, ['label' =>"Submit", "attr" => ['class' => 'btn-custom']])
+            ->add('prestataire', EntityType::class, ['class' => Prestataire::class,'choice_label'=>'nom','mapped'=>false, 'placeholder' => 'Select which enterprise is in charge.'])
+            ->add('restaurant', EntityType::class, ['class' => Restaurant::class, 'choice_label' => 'nom', 'mapped'=>false])
+            ->add('Create', SubmitType::class, ['label' =>'Submit', 'attr' => ['class' => 'btn-custom']])
             ;
     
         }
 
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'data_class' => Mission::class,
-        ]);
-    }
 }

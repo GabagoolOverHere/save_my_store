@@ -26,15 +26,15 @@ class MissionController extends AbstractController
     /**
      * @Route("/newmission/{camis}/{id}", name="newmission")
      */
-    public function register(Request $request, EntityManagerInterface $em, $id, $camis, AdminRepository $adminRepository, PatronPrestataireRepository $service_provider): Response
+    public function register(Request $request, EntityManagerInterface $em, $id, PatronPrestataireRepository $service_provider): Response
     {
-        $em = $this->getDoctrine()->getManager();
-        $mission = new Mission();
-        $form = $this->createForm(MissionFormType::class, $mission);
+        $mission = new Mission;
+        $service_provider = $em->getRepository(PatronPrestataire::class)->find($id);
+        $form = $this->createForm(MissionFormType::class, $service_provider);
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) { 
-            $prestataire = $form->get('prestataire')->getData('id');
+            $prestataire = $form->get('prestataire')->getData();
             $mission->setPrestataire($prestataire);
             
             $em = $this->getDoctrine()->getManager();
@@ -44,8 +44,8 @@ class MissionController extends AbstractController
             return $this->redirectToRoute('profileService');
         }
 
-        return $this->render('registration/register.html.twig', [
-            'registrationForm' => $form->createView(),
+        return $this->render('registration/addMission.html.twig', [
+            'addMission' => $form->createView(),
         ]);
     }
 }

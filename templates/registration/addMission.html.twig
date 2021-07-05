@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Save My Store - Add a new restaurant{% endblock %}
+
+{% block customcss %}
+<link rel="stylesheet" href="{{ asset('scss/registration.min.css') }}">
+{% endblock %}
+
+{% block body %}
+    {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+    {{ form_start(addMission) }}
+
+    {{ form_end(addMission) }}
+{% endblock %}
