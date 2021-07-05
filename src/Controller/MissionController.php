@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Mission;
+use App\Entity\PatronPrestataire;
 use App\Form\MissionFormType;
 use App\Repository\AdminRepository;
 use App\Repository\PatronPrestataireRepository;
@@ -25,12 +26,13 @@ class MissionController extends AbstractController
     /**
      * @Route("/newmission/{id}", name="newmission")
      */
-    public function register(Request $request, EntityManagerInterface $em, AdminRepository $adminRepository, PatronPrestataireRepository $service_provider): Response
+    public function register(Request $request, EntityManagerInterface $em, $id, AdminRepository $adminRepository, PatronPrestataireRepository $service_provider): Response
     {
-        $user = $this->getUser()->getData('patron_prestataire_id');
-        $service_provider = $em->getRepository(PatronRestaurant::class)->find($user);
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $service_provider = $em->getRepository(PatronPrestataire::class)->find($id);
         $mission = new Mission();
-        $form = $this->createForm(MissionFormType::class, $mission and $service_provider);
+        $form = $this->createForm(MissionFormType::class, $mission);
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) { 

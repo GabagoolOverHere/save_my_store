@@ -19,6 +19,19 @@ class PrestataireRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Prestataire::class);
     }
+    
+    public function getPatron($id){
+                $query = $this->createQueryBuilder('m');
+                return $query
+                    ->select('pp.id')
+                    ->join('App\Entity\Prestataire', 'p', Join::WITH, 'm.prestataire_id = p.id')
+                    ->innerJoin('App\Entity\PatronPrestataire', 'pp', Join::WITH, 'p.patronPrestataire = pp.id')
+                    ->where('pp.id = :id')
+                    ->setParameter(':id',$id)
+                    ->getQuery()
+                    ->getResult()
+                    ;
+            }
 
 
     // /**

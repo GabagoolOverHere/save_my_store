@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\Mission;
 use App\Entity\Prestataire;
+use App\Repository\MissionRepository;
+use Doctrine\DBAL\Types\BigIntType;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -35,7 +37,7 @@ class MissionFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-        //$admin=$this->security->getUser('patron_prestataire_id');
+        $id=$this->security->getUser();
 
         $builder
             ->add('descriptif', TextareaType::class)
@@ -56,29 +58,12 @@ class MissionFormType extends AbstractType
                     ])
                 ],
             ])
-        ;
-        // $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($id){
-        //     $form = $event->getForm();
-        //     $prestataire = [
-        //         'class' => Prestataire::class,
-        //         'query_builder' => function (EntityRepository $er) use ($id) {
-        //             return $er->createQueryBuilder('p')
-        //             ->where('p.patron_id =' . $id);
-        //         },
-        //         'choice_label'=>'nom', 'mapped'=>false, 'placeholder' => 'Select which enterprise is in charge.'
-        //     ];
-        //     $form
-        //         ->add('prestataire', EntityType::class, $prestataire);
-        //     });
-        $builder
-            ->add('prestataire', EntityType::class, [
-                'class' => Prestataire::class,
-                'choice_label' => 'nom',
-                'mapped' => false,
-                'placeholder' => 'Select which enterprise is in charge.'
-            ])
-            ->add('Create', SubmitType::class);
-    }
+            ->add('prestataire', EntityType::class, ['class' => PrestataireRepository::class,'choice_label'=>'nom', 'mapped'=>false, 'placeholder' => 'Select which enterprise is in charge.'])
+            ->add('restaurant', BigIntType::class, ['label' => 'The restaurant :', 'mapped'=>false, 'data'=>$id])
+            ->add('Create', SubmitType::class, ['label' =>"Submit", "attr" => ['class' => 'btn-custom']])
+            ;
+    
+        }
 
     public function configureOptions(OptionsResolver $resolver)
     {
