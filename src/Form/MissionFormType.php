@@ -58,8 +58,13 @@ class MissionFormType extends AbstractType
                     ])
                 ],
             ])
-            ->add('prestataire', EntityType::class, ['class' => PrestataireRepository::class,'choice_label'=>'nom', 'mapped'=>false, 'placeholder' => 'Select which enterprise is in charge.'])
-            ->add('restaurant', BigIntType::class, ['label' => 'The restaurant :', 'mapped'=>false, 'data'=>$id])
+            ->add('prestataire', EntityType::class, ['class' => Prestataire::class,'choice_label'=>'nom',
+            'query_builder' => function (EntityRepository $er) {
+                return $er->createQueryBuilder('p')
+                    ->select('p.nom')
+                    ->where('p.patron_id=$id');
+            },'mapped'=>false, 'placeholder' => 'Select which enterprise is in charge.'])
+            ->add('restaurant', BigIntType::class, ['label' => 'The restaurant :', 'mapped'=>false, 'data'=>'$camis'])
             ->add('Create', SubmitType::class, ['label' =>"Submit", "attr" => ['class' => 'btn-custom']])
             ;
     
